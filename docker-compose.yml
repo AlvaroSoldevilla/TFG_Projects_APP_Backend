@@ -1,0 +1,22 @@
+services:
+  api:
+    image: alvarosoldevilla/apiprojects:latest
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_TYPE=sqlite
+      - POSTGRES_PASSWORD=productsapi
+      - POSTGRES_USER=productsapi
+      - POSTGRES_DB=productsapi
+      - DB_HOST=db
+  db:
+    image: postgres:15
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=productsapi
+      - POSTGRES_USER=productsapi
+      - POSTGRES_DB=productsapi
+      - DB_HOST=db
