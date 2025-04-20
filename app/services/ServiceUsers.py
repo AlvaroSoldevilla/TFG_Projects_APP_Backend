@@ -1,6 +1,6 @@
 import app.repositories.RepositoryUsers as ru
 from app.services.ServiceProjectUsers import get_project_user_by_project
-from app.schemas.User import UserCreate, UserUpdate
+from app.schemas.User import UserCreate, UserUpdate, UserAuthenticate
 
 
 async def get_all_users():
@@ -36,10 +36,13 @@ async def get_users_by_project(id_project: int):
     return users
 
 
-async def authenticate_user(id_user: int, password: str):
-    user = ru.get_user_by_id(id_user)
+async def authenticate_user(user_data: UserAuthenticate):
+    user = ru.get_user_by_mail(user_data.email)
 
-    if user.password == password:
-        return True
+    if user is not None:
+        if user.password == user_data.password:
+            return True
+        else:
+            return False
     else:
         return False

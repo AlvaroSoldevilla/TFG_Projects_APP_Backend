@@ -1,4 +1,5 @@
 import app.repositories.RepositoryProjects as rp
+from app.services.ServiceProjectUsers import get_project_user_by_user
 from app.schemas.Project import ProjectCreate, ProjectUpdate
 
 
@@ -20,3 +21,16 @@ async def update_project(project_id: int, project_update: ProjectUpdate):
 
 async def delete_project(project_id: int):
     return rp.delete_project(project_id)
+
+
+async def get_projects_by_user(id_user: int):
+    all_projects = rp.get_all_projects()
+    user_projects = get_project_user_by_user(id_user)
+
+    project = []
+    for project in all_projects:
+        for user_project in user_projects:
+            if project.id == user_project.id_project:
+                project.append(project)
+
+    return project

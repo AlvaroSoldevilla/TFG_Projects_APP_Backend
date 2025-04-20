@@ -18,12 +18,14 @@ async def get_user_by_id(user_id: int, session: Session = Depends(get_session())
 
 
 async def create_user(user_data: UserCreate, session: Session = Depends(get_session())):
-    user = Users(**user_data.model_dump())
-    session.add(user)
-    session.commit()
-    session.refresh(user)
+    if not mail_exists(user_data.email):
+        user = Users(**user_data.model_dump())
+        session.add(user)
+        session.commit()
+        session.refresh(user)
 
-    return True
+        return True
+    return False
 
 
 async def update_user(user_id: int, user_update: UserUpdate, session: Session = Depends(get_session())):
@@ -33,7 +35,8 @@ async def update_user(user_id: int, user_update: UserUpdate, session: Session = 
         return False
 
     for k, v in user_update.model_dump(exclude_unset=True).items():
-        setattr(user, k, v)
+        if k == "email" and not mail_exists(v):
+            setattr(user, k, v)
 
     session.add(user)
     session.commit()
@@ -52,3 +55,20 @@ async def delete_user(user_id: int, session: Session = Depends(get_session())):
     session.commit()
 
     return True
+
+
+async def mail_exists(email: str, session: Session = Depends(get_session())):
+    query = select(Users).where(Users.email == email)
+    user = session.exec(query).first()
+
+    if user is None:
+        return False
+    else:
+        return True
+
+
+async def get_user_by_mail(email: str, session: Session = Depends(get_session())):
+    query = select(Users).where(Users.email == email)
+    user = session.exec(query).first()
+
+    return user if user is not None else None
