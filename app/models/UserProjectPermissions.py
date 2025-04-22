@@ -3,6 +3,8 @@ from typing import Optional
 
 
 class UserProjectPermissions(SQLModel, table=True):
+    __tablename__ = "user_project_permissions"
+
     id:             int | None = Field(default=None, primary_key=True)
     id_permission:  int | None = Field(default=None, foreign_key="permissions.id")
     id_user:        int | None = Field(default=None, foreign_key="users.id")

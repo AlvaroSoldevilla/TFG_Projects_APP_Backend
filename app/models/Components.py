@@ -3,6 +3,8 @@ from typing import Optional
 
 
 class Components(SQLModel, table=True):
+    __tablename__ = "components"
+
     id:             int | None = Field(default=None, primary_key=True)
     id_board:       int | None = Field(default=None, foreign_key="concept_boards.id")
     id_parent:      int | None = Field(default=None, foreign_key="components.id")
@@ -12,7 +14,10 @@ class Components(SQLModel, table=True):
     title:          str | None = None
     content:        str | None = None
 
-    board:          Optional[list["ConceptBoards"]] = Relationship(back_populates="components")
-    parent:         Optional["Components"] = Relationship(back_populates="children")
+    board:          Optional["ConceptBoards"] = Relationship(back_populates="components")
+    parent: Optional["Components"] = Relationship(
+        back_populates="children",
+        sa_relationship_kwargs={"remote_side": "Components.id"}
+    )
     children:       Optional[list["Components"]] = Relationship(back_populates="parent")
     type:           Optional["Types"] = Relationship(back_populates="components")

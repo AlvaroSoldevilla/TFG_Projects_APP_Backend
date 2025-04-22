@@ -2,6 +2,8 @@ from sqlmodel import create_engine, Session
 from app.core.config import config
 
 
+
+
 if config.database_type == "sqlite":
     database_url = "sqlite:///./database.db"
 
@@ -20,6 +22,3 @@ elif config.database_type == "postgres":
 def get_session():
     with Session(engine) as session:
         yield session
-
-def fill_base_data():
-    pass

@@ -3,8 +3,10 @@ from typing import Optional
 
 
 class TaskBoards(SQLModel, table=True):
+    __tablename__ = "task_boards"
+
     id:             int | None = Field(default=None, primary_key=True)
-    id_project:     int | None = Field(default=None, foreign_key="project.id")
+    id_project:     int | None = Field(default=None, foreign_key="projects.id")
     title:          str | None = None
     description:    str | None = None
 

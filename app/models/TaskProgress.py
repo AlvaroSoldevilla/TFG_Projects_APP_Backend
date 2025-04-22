@@ -3,6 +3,8 @@ from typing import Optional
 
 
 class TaskProgress(SQLModel, table=True):
+    __tablename__ = "task_progress"
+
     id:                     int | None = Field(default=None, primary_key=True)
     id_section:             int | None = Field(default=None, foreign_key="task_sections.id")
     title:                  str | None = None

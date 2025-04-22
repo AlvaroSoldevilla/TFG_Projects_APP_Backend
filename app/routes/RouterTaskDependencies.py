@@ -9,17 +9,17 @@ router = APIRouter(prefix="/task_dependencies", tags=["Task Dependencies"])
 # Generic endpoints
 @router.get("/", response_model=list[TaskDependencyRead], status_code=200)
 async def get_all_task_dependencies():
-    return std.get_all_task_dependencies()
+    return await std.get_all_task_dependencies()
 
 
 @router.get("/{id}", response_model=TaskDependencyRead, status_code=200)
 async def get_task_dependency_by_id(id: int):
-    return std.get_task_dependency_by_id(id)
+    return await std.get_task_dependency_by_id(id)
 
 
 @router.post("/", status_code=200)
 async def create_task_dependency(task_dependency_data: TaskDependencyCreate):
-    if std.create_task_dependency(task_dependency_data):
+    if await std.create_task_dependency(task_dependency_data):
         return {"Message": "Task dependency created"}
     else:
         raise HTTPException(status_code=400, detail="Could not create task dependency")
@@ -27,7 +27,7 @@ async def create_task_dependency(task_dependency_data: TaskDependencyCreate):
 
 @router.patch("/{id}", status_code=200)
 async def update_task_dependency(id: int, task_dependency_update: TaskDependencyUpdate):
-    if std.update_task_dependency(id, task_dependency_update):
+    if await std.update_task_dependency(id, task_dependency_update):
         return {"Message": "Task dependency updated"}
     else:
         raise HTTPException(status_code=400, detail="Could not update task dependency")
@@ -35,7 +35,7 @@ async def update_task_dependency(id: int, task_dependency_update: TaskDependency
 
 @router.delete("/{id}", status_code=200)
 async def delete_task_dependency(id: int):
-    if std.delete_task_dependency(id):
+    if await std.delete_task_dependency(id):
         return {"Message": "Task dependency deleted"}
     else:
         raise HTTPException(status_code=400, detail="Could not delete task dependency")
@@ -44,4 +44,4 @@ async def delete_task_dependency(id: int):
 # Model Specific endpoints
 @router.get("/task/{id}", response_model=list[TaskDependencyRead], status_code=200)
 async def get_task_dependencies_by_task(task_id: int):
-    return std.get_dependencies_by_task_id(task_id)
+    return await std.get_dependencies_by_task_id(task_id)

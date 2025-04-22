@@ -3,6 +3,8 @@ from typing import Optional
 
 
 class ProjectUsers(SQLModel, table=True):
+    __tablename__ = "project_users"
+
     id:             int | None = Field(default=None, primary_key=True)
     id_user:        int | None = Field(default=None, foreign_key="users.id")
     id_project:     int | None = Field(default=None, foreign_key="projects.id")

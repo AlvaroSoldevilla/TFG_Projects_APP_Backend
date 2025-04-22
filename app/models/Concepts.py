@@ -3,6 +3,8 @@ from typing import Optional
 
 
 class Concepts(SQLModel, table=True):
+    __tablename__ = "concepts"
+
     id:                 int | None = Field(default=None, primary_key=True)
     id_project:         int | None = Field(default=None, foreign_key="projects.id")
     title:              str | None = None

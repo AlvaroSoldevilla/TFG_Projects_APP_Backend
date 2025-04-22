@@ -9,17 +9,17 @@ router = APIRouter(prefix="/roles", tags=["Roles"])
 # Generic endpoints
 @router.get("/", response_model=list[RoleRead], status_code=200)
 async def get_all_roles():
-    return sr.get_all_roles()
+    return await sr.get_all_roles()
 
 
 @router.get("/{id}", response_model=RoleRead, status_code=200)
 async def get_role_by_id(id: int):
-    return sr.get_role_by_id(id)
+    return await sr.get_role_by_id(id)
 
 
 @router.post("/", status_code=200)
 async def create_role(role_data: RoleCreate):
-    if sr.create_role(role_data):
+    if await sr.create_role(role_data):
         return {"Message": "Role created"}
     else:
         raise HTTPException(status_code=400, detail="Could not create role")
@@ -27,7 +27,7 @@ async def create_role(role_data: RoleCreate):
 
 @router.patch("/{id}", status_code=200)
 async def update_role(id: int, role_update: RoleUpdate):
-    if sr.update_role(id, role_update):
+    if await sr.update_role(id, role_update):
         return {"Message": "Role updated"}
     else:
         raise HTTPException(status_code=400, detail="Could not update role")
@@ -35,7 +35,7 @@ async def update_role(id: int, role_update: RoleUpdate):
 
 @router.delete("/{id}", status_code=200)
 async def delete_role(id: int):
-    if sr.delete_role(id):
+    if await sr.delete_role(id):
         return {"Message": "Role deleted"}
     else:
         raise HTTPException(status_code=400, detail="Could not delete role")

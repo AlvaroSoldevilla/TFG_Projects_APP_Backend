@@ -1,6 +1,6 @@
 from sqlmodel import SQLModel
 from typing import Optional
-from sqlalchemy import Date
+from datetime import date
 
 
 class TaskCreate(SQLModel):
@@ -13,8 +13,8 @@ class TaskCreate(SQLModel):
     id_priority:            int | None
     description:            str | None = ""
     progress:               int | None = 0
-    creation_date:          Optional[Date]
-    limit_date:             Optional[Date]
+    creation_date:          Optional[date]
+    limit_date:             Optional[date]
     finished:               bool | None = False
 
 
@@ -32,5 +32,5 @@ class TaskUpdate(SQLModel):
     title:                  str | None = None
     description:            str | None = None
     progress:               int | None = None
-    limit_date:             Optional[Date]
+    limit_date:             Optional[date]
     finished:               bool | None = None
