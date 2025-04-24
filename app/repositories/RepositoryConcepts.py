@@ -1,23 +1,22 @@
-from fastapi import Depends
 from sqlalchemy import select
 from sqlmodel import Session
-from app.db.session import get_session
+
 from app.models.Concepts import Concepts
 from app.schemas.Concept import ConceptCreate, ConceptUpdate
 
 
-async def get_all_concepts(session: Session = Depends(get_session())):
+async def get_all_concepts(session: Session):
     query = select(Concepts)
     concepts = session.exec(query).scalar().all()
 
     return [Concepts.model_validate(c) for c in concepts]
 
 
-async def get_concept_by_id(concept_id: int, session: Session = Depends(get_session())):
+async def get_concept_by_id(concept_id: int, session: Session):
     return session.get(Concepts, concept_id)
 
 
-async def create_concept(concept_data: ConceptCreate, session: Session = Depends(get_session())):
+async def create_concept(concept_data: ConceptCreate, session: Session):
     concept = Concepts(**concept_data.model_dump())
     session.add(concept)
     session.commit()
@@ -26,7 +25,7 @@ async def create_concept(concept_data: ConceptCreate, session: Session = Depends
     return True
 
 
-async def update_concept(concept_id: int, concept_update: ConceptUpdate, session: Session = Depends(get_session())):
+async def update_concept(concept_id: int, concept_update: ConceptUpdate, session: Session):
     concept = session.get(Concepts, concept_id)
 
     if not concept:
@@ -42,7 +41,7 @@ async def update_concept(concept_id: int, concept_update: ConceptUpdate, session
     return True
 
 
-async def delete_concept(concept_id: int, session: Session = Depends(get_session())):
+async def delete_concept(concept_id: int, session: Session):
     concept = session.get(Concepts, concept_id)
 
     if not concept:

@@ -1,23 +1,22 @@
-from fastapi import Depends
 from sqlalchemy import select
 from sqlmodel import Session
-from app.db.session import get_session
+
 from app.models.TaskDependencies import TaskDependencies
 from app.schemas.TaskDependency import TaskDependencyCreate, TaskDependencyUpdate
 
 
-async def get_all_task_dependencies(session: Session = Depends(get_session())):
+async def get_all_task_dependencies(session: Session):
     query = select(TaskDependencies)
     task_dependencies = session.exec(query).scalar().all()
 
     return [TaskDependencies.model_validate(td) for td in task_dependencies]
 
 
-async def get_task_dependency_by_id(task_dependency_id: int, session: Session = Depends(get_session())):
+async def get_task_dependency_by_id(task_dependency_id: int, session: Session):
     return session.get(TaskDependencies, task_dependency_id)
 
 
-async def create_task_dependency(task_dependency_data: TaskDependencyCreate, session: Session = Depends(get_session())):
+async def create_task_dependency(task_dependency_data: TaskDependencyCreate, session: Session):
     task_dependency = TaskDependencies(**task_dependency_data.model_dump())
     session.add(task_dependency)
     session.commit()
@@ -26,7 +25,7 @@ async def create_task_dependency(task_dependency_data: TaskDependencyCreate, ses
     return True
 
 
-async def update_task_dependency(task_dependency_id: int, task_dependency_update: TaskDependencyUpdate, session: Session = Depends(get_session())):
+async def update_task_dependency(task_dependency_id: int, task_dependency_update: TaskDependencyUpdate, session: Session):
     task_dependency = session.get(TaskDependencies, task_dependency_id)
 
     if not task_dependency:
@@ -42,7 +41,7 @@ async def update_task_dependency(task_dependency_id: int, task_dependency_update
     return True
 
 
-async def delete_task_dependency(task_dependency_id: int, session: Session = Depends(get_session())):
+async def delete_task_dependency(task_dependency_id: int, session: Session):
     task_dependency = session.get(TaskDependencies, task_dependency_id)
 
     if not task_dependency:

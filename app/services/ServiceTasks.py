@@ -1,43 +1,45 @@
+from sqlmodel import Session
+
 import app.repositories.RepositoryTasks as rt
 from app.schemas.Task import TaskCreate, TaskUpdate
 from app.services.ServiceUsers import get_user_by_id
 
 
-async def get_all_tasks():
-    return await rt.get_all_tasks()
+async def get_all_tasks(session: Session):
+    return await rt.get_all_tasks(session)
 
 
-async def get_task_by_id(task_id: int):
-    return await rt.get_task_by_id(task_id)
+async def get_task_by_id(task_id: int, session: Session):
+    return await rt.get_task_by_id(task_id, session)
 
 
-async def create_task(task_data: TaskCreate):
-    return await rt.create_task(task_data)
+async def create_task(task_data: TaskCreate, session: Session):
+    return await rt.create_task(task_data, session)
 
 
-async def update_task(task_id: int, task_update: TaskUpdate):
-    return await rt.update_task(task_id, task_update)
+async def update_task(task_id: int, task_update: TaskUpdate, session: Session):
+    return await rt.update_task(task_id, task_update, session)
 
 
-async def delete_task(task_id: int):
-    return await rt.delete_task(task_id)
+async def delete_task(task_id: int, session: Session):
+    return await rt.delete_task(task_id, session)
 
 
-async def get_tasks_by_task_section(id_section: int):
-    tasks = await get_all_tasks()
+async def get_tasks_by_task_section(id_section: int, session: Session):
+    tasks = await get_all_tasks(session)
     return [task for task in tasks if task.id_section == id_section]
 
 
-async def get_tasks_by_task_progress(id_progress_section: int):
-    tasks = await get_all_tasks()
+async def get_tasks_by_task_progress(id_progress_section: int, session: Session):
+    tasks = await get_all_tasks(session)
     return [task for task in tasks if task.id_progress_section == id_progress_section]
 
 
-async def get_user_assigned_by_task_id(id_task: int):
-    task = get_task_by_id(id_task)
-    return get_user_by_id(task.id_user_assigned)
+async def get_user_assigned_by_task_id(id_task: int, session: Session):
+    task = get_task_by_id(id_task, session)
+    return get_user_by_id(task.id_user_assigned, session)
 
 
-async def get_user_created_by_task_id(id_task: int):
-    task = get_task_by_id(id_task)
-    return get_user_by_id(task.id_user_created)
+async def get_user_created_by_task_id(id_task: int, session: Session):
+    task = get_task_by_id(id_task, session)
+    return get_user_by_id(task.id_user_created, session)

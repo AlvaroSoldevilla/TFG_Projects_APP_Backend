@@ -1,23 +1,22 @@
-from fastapi import Depends
 from sqlalchemy import select
 from sqlmodel import Session
-from app.db.session import get_session
+
 from app.models.Components import Components
 from app.schemas.Component import ComponentCreate, ComponentUpdate
 
 
-async def get_all_components(session: Session = Depends(get_session())):
+async def get_all_components(session: Session):
     query = select(Components)
     components = session.exec(query).scalar().all()
 
     return [Components.model_validate(c) for c in components]
 
 
-async def get_component_by_id(component_id: int, session: Session = Depends(get_session())):
+async def get_component_by_id(component_id: int, session: Session):
     return session.get(Components, component_id)
 
 
-async def create_component(component_data: ComponentCreate, session: Session = Depends(get_session())):
+async def create_component(component_data: ComponentCreate, session: Session):
     component = Components(**component_data.model_dump())
     session.add(component)
     session.commit()
@@ -26,7 +25,7 @@ async def create_component(component_data: ComponentCreate, session: Session = D
     return True
 
 
-async def update_component(component_id: int, component_update: ComponentUpdate, session: Session = Depends(get_session())):
+async def update_component(component_id: int, component_update: ComponentUpdate, session: Session):
     component = session.get(Components, component_id)
 
     if not component:
@@ -44,7 +43,7 @@ async def update_component(component_id: int, component_update: ComponentUpdate,
     return True
 
 
-async def delete_component(component_id: int, session: Session = Depends(get_session())):
+async def delete_component(component_id: int, session: Session):
     component = session.get(Components, component_id)
 
     if not component:

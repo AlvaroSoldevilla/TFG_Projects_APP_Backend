@@ -1,5 +1,7 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
+from sqlmodel import Session
 
+from app.db.session import get_session
 from app.schemas.Permission import PermissionCreate, PermissionUpdate, PermissionRead
 import app.services.ServicePermissions as sp
 
@@ -8,34 +10,34 @@ router = APIRouter(prefix="/permissions", tags=["Permissions"])
 
 # Generic endpoints
 @router.get("/", response_model=list[PermissionRead], status_code=200)
-async def get_all_permissions():
-    return await sp.get_all_permissions()
+async def get_all_permissions(session: Session = Depends(get_session)):
+    return await sp.get_all_permissions(session)
 
 
 @router.get("/{id}", response_model=PermissionRead, status_code=200)
-async def get_permission_by_id(id: int):
-    return await sp.get_permission_by_id(id)
+async def get_permission_by_id(id: int, session: Session = Depends(get_session)):
+    return await sp.get_permission_by_id(id, session)
 
 
 @router.post("/", status_code=200)
-async def create_permission(permission_data: PermissionCreate):
-    if await sp.create_permission(permission_data):
+async def create_permission(permission_data: PermissionCreate, session: Session = Depends(get_session)):
+    if await sp.create_permission(permission_data, session):
         return {"Message": "Permission created"}
     else:
         raise HTTPException(status_code=400, detail="Could not create permission")
 
 
 @router.patch("/{id}", status_code=200)
-async def update_permission(id: int, permission_update: PermissionUpdate):
-    if await sp.update_permission(id, permission_update):
+async def update_permission(id: int, permission_update: PermissionUpdate, session: Session = Depends(get_session)):
+    if await sp.update_permission(id, permission_update, session):
         return {"Message": "Permission updated"}
     else:
         raise HTTPException(status_code=400, detail="Could not update permission")
 
 
 @router.delete("/{id}", status_code=200)
-async def delete_permission(id: int):
-    if await sp.delete_permission(id):
+async def delete_permission(id: int, session: Session = Depends(get_session)):
+    if await sp.delete_permission(id, session):
         return {"Message": "Permission deleted"}
     else:
         raise HTTPException(status_code=400, detail="Could not delete permission")

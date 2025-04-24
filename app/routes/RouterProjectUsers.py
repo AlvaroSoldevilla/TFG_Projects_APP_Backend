@@ -1,5 +1,7 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
+from sqlmodel import Session
 
+from app.db.session import get_session
 from app.schemas.ProjectUser import ProjectUserCreate, ProjectUserUpdate, ProjectUserRead
 import app.services.ServiceProjectUsers as spu
 
@@ -8,34 +10,34 @@ router = APIRouter(prefix="/project_users", tags=["Project Users"])
 
 # Generic endpoints
 @router.get("/", response_model=list[ProjectUserRead], status_code=200)
-async def get_all_project_users():
-    return await spu.get_all_project_users()
+async def get_all_project_users(session: Session = Depends(get_session)):
+    return await spu.get_all_project_users(session)
 
 
 @router.get("/{id}", response_model=ProjectUserRead, status_code=200)
-async def get_project_user_by_id(id: int):
-    return await spu.get_project_user_by_id(id)
+async def get_project_user_by_id(id: int, session: Session = Depends(get_session)):
+    return await spu.get_project_user_by_id(id, session)
 
 
 @router.post("/", status_code=200)
-async def create_project_user(project_user_data: ProjectUserCreate):
-    if await spu.create_project_user(project_user_data):
+async def create_project_user(project_user_data: ProjectUserCreate, session: Session = Depends(get_session)):
+    if await spu.create_project_user(project_user_data, session):
         return {"Message": "Project user created"}
     else:
         raise HTTPException(status_code=400, detail="Could not create project user")
 
 
 @router.patch("/{id}", status_code=200)
-async def update_project_user(id: int, project_user_update: ProjectUserUpdate):
-    if await spu.update_project_user(id, project_user_update):
+async def update_project_user(id: int, project_user_update: ProjectUserUpdate, session: Session = Depends(get_session)):
+    if await spu.update_project_user(id, project_user_update, session):
         return {"Message": "Project user updated"}
     else:
         raise HTTPException(status_code=400, detail="Could not update project user")
 
 
 @router.delete("/{id}", status_code=200)
-async def delete_project_user(id: int):
-    if await spu.delete_project_user(id):
+async def delete_project_user(id: int, session: Session = Depends(get_session)):
+    if await spu.delete_project_user(id, session):
         return {"Message": "Project user deleted"}
     else:
         raise HTTPException(status_code=400, detail="Could not delete project user")
@@ -43,10 +45,10 @@ async def delete_project_user(id: int):
 
 # Model Specific endpoints
 @router.get("/user/{id}", response_model=list[ProjectUserRead], status_code=200)
-async def get_project_users_by_user(id_user: int):
-    return await spu.get_project_user_by_user(id_user)
+async def get_project_users_by_user(id_user: int, session: Session = Depends(get_session)):
+    return await spu.get_project_user_by_user(id_user, session)
 
 
 @router.get("/project/{id}", response_model=list[ProjectUserRead], status_code=200)
-async def get_project_users_by_project(id_project: int):
-    return await spu.get_project_user_by_project(id_project)
+async def get_project_users_by_project(id_project: int, session: Session = Depends(get_session)):
+    return await spu.get_project_user_by_project(id_project, session)
