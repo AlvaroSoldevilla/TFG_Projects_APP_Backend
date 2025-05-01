@@ -10,34 +10,34 @@ router = APIRouter(prefix="/task_progresss", tags=["Task Progresss"])
 
 # Generic endpoints
 @router.get("/", response_model=list[TaskProgressRead], status_code=200)
-async def get_all_task_progress(session: Session = Depends(get_session)):
-    return await stp.get_all_task_progress(session)
+def get_all_task_progress(session: Session = Depends(get_session)):
+    return stp.get_all_task_progress(session)
 
 
 @router.get("/{id}", response_model=TaskProgressRead, status_code=200)
-async def get_task_progress_by_id(id: int, session: Session = Depends(get_session)):
-    return await stp.get_task_progress_by_id(id, session)
+def get_task_progress_by_id(id: int, session: Session = Depends(get_session)):
+    return stp.get_task_progress_by_id(id, session)
 
 
 @router.post("/", status_code=200)
-async def create_task_progress(task_progress_data: TaskProgressCreate, session: Session = Depends(get_session)):
-    if await stp.create_task_progress(task_progress_data, session):
+def create_task_progress(task_progress_data: TaskProgressCreate, session: Session = Depends(get_session)):
+    if stp.create_task_progress(task_progress_data, session):
         return {"Message": "Task progress created"}
     else:
         raise HTTPException(status_code=400, detail="Could not create task progress")
 
 
 @router.patch("/{id}", status_code=200)
-async def update_task_progress(id: int, task_progress_update: TaskProgressUpdate, session: Session = Depends(get_session)):
-    if await stp.update_task_progress(id, task_progress_update, session):
+def update_task_progress(id: int, task_progress_update: TaskProgressUpdate, session: Session = Depends(get_session)):
+    if stp.update_task_progress(id, task_progress_update, session):
         return {"Message": "Task progress updated"}
     else:
         raise HTTPException(status_code=400, detail="Could not update task progress")
 
 
 @router.delete("/{id}", status_code=200)
-async def delete_task_progress(id: int, session: Session = Depends(get_session)):
-    if await stp.delete_task_progress(id, session):
+def delete_task_progress(id: int, session: Session = Depends(get_session)):
+    if stp.delete_task_progress(id, session):
         return {"Message": "Task progress deleted"}
     else:
         raise HTTPException(status_code=400, detail="Could not delete task progress")
@@ -45,5 +45,5 @@ async def delete_task_progress(id: int, session: Session = Depends(get_session))
 
 # Model Specific endpoints
 @router.get("/section/{id}", response_model=TaskProgressRead, status_code=200)
-async def get_task_progress_by_task_section(id_section: int, session: Session = Depends(get_session)):
-    return await stp.get_task_progress_by_task_section(id_section, session)
+def get_task_progress_by_task_section(id_section: int, session: Session = Depends(get_session)):
+    return stp.get_task_progress_by_task_section(id_section, session)

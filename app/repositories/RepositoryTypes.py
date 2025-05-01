@@ -5,18 +5,18 @@ from app.models.Types import Types
 from app.schemas.Type import TypeCreate, TypeUpdate
 
 
-async def get_all_types(session: Session):
+def get_all_types(session: Session):
     query = select(Types)
-    component_types = session.exec(query).scalar().all()
+    component_types = session.exec(query).scalars().all()
 
     return [Types.model_validate(t) for t in component_types]
 
 
-async def get_type_by_id(type_id: int, session: Session):
+def get_type_by_id(type_id: int, session: Session):
     return session.get(Types, type_id)
 
 
-async def create_type(type_data: TypeCreate, session: Session):
+def create_type(type_data: TypeCreate, session: Session):
     component_type = Types(**type_data.model_dump())
     session.add(component_type)
     session.commit()
@@ -25,7 +25,7 @@ async def create_type(type_data: TypeCreate, session: Session):
     return True
 
 
-async def update_type(type_id: int, type_update: TypeUpdate, session: Session):
+def update_type(type_id: int, type_update: TypeUpdate, session: Session):
     component_type = session.get(Types, type_id)
 
     if not component_type:
@@ -41,7 +41,7 @@ async def update_type(type_id: int, type_update: TypeUpdate, session: Session):
     return True
 
 
-async def delete_type(type_id: int, session: Session):
+def delete_type(type_id: int, session: Session):
     component_type = session.get(Types, type_id)
 
     if not component_type:

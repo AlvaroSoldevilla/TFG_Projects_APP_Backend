@@ -5,18 +5,18 @@ from app.models.Projects import Projects
 from app.schemas.Project import ProjectCreate, ProjectUpdate
 
 
-async def get_all_projects(session: Session):
+def get_all_projects(session: Session):
     query = select(Projects)
-    projects = session.exec(query).scalar().all()
+    projects = session.exec(query).scalars().all()
 
     return [Projects.model_validate(p) for p in projects]
 
 
-async def get_project_by_id(project_id: int, session: Session):
+def get_project_by_id(project_id: int, session: Session):
     return session.get(Projects, project_id)
 
 
-async def create_project(project_data: ProjectCreate, session: Session):
+def create_project(project_data: ProjectCreate, session: Session):
     project = Projects(**project_data.model_dump())
     session.add(project)
     session.commit()
@@ -25,7 +25,7 @@ async def create_project(project_data: ProjectCreate, session: Session):
     return True
 
 
-async def update_project(project_id: int, project_update: ProjectUpdate, session: Session):
+def update_project(project_id: int, project_update: ProjectUpdate, session: Session):
     project = session.get(Projects, project_id)
 
     if not project:
@@ -41,7 +41,7 @@ async def update_project(project_id: int, project_update: ProjectUpdate, session
     return True
 
 
-async def delete_project(project_id: int, session: Session):
+def delete_project(project_id: int, session: Session):
     project = session.get(Projects, project_id)
 
     if not project:

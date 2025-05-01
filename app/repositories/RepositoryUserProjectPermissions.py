@@ -5,18 +5,18 @@ from app.models.UserProjectPermissions import UserProjectPermissions
 from app.schemas.UserProjectPermission import UserProjectPermissionCreate, UserProjectPermissionUpdate
 
 
-async def get_all_user_project_permissions(session: Session):
+def get_all_user_project_permissions(session: Session):
     query = select(UserProjectPermissions)
-    user_role_permissions = session.exec(query).scalar().all()
+    user_role_permissions = session.exec(query).scalars().all()
 
     return [UserProjectPermissions.model_validate(urp) for urp in user_role_permissions]
 
 
-async def get_user_project_permission_by_id(user_project_permission_id: int, session: Session):
+def get_user_project_permission_by_id(user_project_permission_id: int, session: Session):
     return session.get(UserProjectPermissions, user_project_permission_id)
 
 
-async def create_user_project_permission(user_project_permission_data: UserProjectPermissionCreate, session: Session):
+def create_user_project_permission(user_project_permission_data: UserProjectPermissionCreate, session: Session):
     user_project_permission = UserProjectPermissions(**user_project_permission_data.model_dump())
     session.add(user_project_permission)
     session.commit()
@@ -25,7 +25,7 @@ async def create_user_project_permission(user_project_permission_data: UserProje
     return True
 
 
-async def update_user_project_permission(user_project_permission_id: int, user_project_permission_update: UserProjectPermissionUpdate, session: Session):
+def update_user_project_permission(user_project_permission_id: int, user_project_permission_update: UserProjectPermissionUpdate, session: Session):
     user_project_permission = session.get(UserProjectPermissions, user_project_permission_id)
 
     if not user_project_permission:
@@ -41,7 +41,7 @@ async def update_user_project_permission(user_project_permission_id: int, user_p
     return True
 
 
-async def delete_user_project_permission(user_project_permission_id: int, session: Session):
+def delete_user_project_permission(user_project_permission_id: int, session: Session):
     user_project_permission = session.get(UserProjectPermissions, user_project_permission_id)
 
     if not user_project_permission:

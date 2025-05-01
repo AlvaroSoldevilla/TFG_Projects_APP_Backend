@@ -5,18 +5,18 @@ from app.models.Concepts import Concepts
 from app.schemas.Concept import ConceptCreate, ConceptUpdate
 
 
-async def get_all_concepts(session: Session):
+def get_all_concepts(session: Session):
     query = select(Concepts)
-    concepts = session.exec(query).scalar().all()
+    concepts = session.exec(query).scalars().all()
 
     return [Concepts.model_validate(c) for c in concepts]
 
 
-async def get_concept_by_id(concept_id: int, session: Session):
+def get_concept_by_id(concept_id: int, session: Session):
     return session.get(Concepts, concept_id)
 
 
-async def create_concept(concept_data: ConceptCreate, session: Session):
+def create_concept(concept_data: ConceptCreate, session: Session):
     concept = Concepts(**concept_data.model_dump())
     session.add(concept)
     session.commit()
@@ -25,7 +25,7 @@ async def create_concept(concept_data: ConceptCreate, session: Session):
     return True
 
 
-async def update_concept(concept_id: int, concept_update: ConceptUpdate, session: Session):
+def update_concept(concept_id: int, concept_update: ConceptUpdate, session: Session):
     concept = session.get(Concepts, concept_id)
 
     if not concept:
@@ -41,7 +41,7 @@ async def update_concept(concept_id: int, concept_update: ConceptUpdate, session
     return True
 
 
-async def delete_concept(concept_id: int, session: Session):
+def delete_concept(concept_id: int, session: Session):
     concept = session.get(Concepts, concept_id)
 
     if not concept:

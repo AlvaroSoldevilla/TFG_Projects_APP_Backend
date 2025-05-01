@@ -2,21 +2,21 @@ from sqlalchemy import select
 from sqlmodel import Session
 
 from app.models.Priorities import Priorities
-from app.schemas.Priority import PriorityCreate, PriorityUpdate
+from app.schemas.Priority import PriorityCreate, PriorityUpdate, PriorityRead
 
 
-async def get_all_priorities(session: Session):
+def get_all_priorities(session: Session):
     query = select(Priorities)
-    priorities = session.exec(query).scalar().all()
+    priorities = session.exec(query).scalars().all()
 
-    return [Priorities.model_validate(p) for p in priorities]
+    return [PriorityRead.model_validate(p) for p in priorities]
 
 
-async def get_priority_by_id(priority_id: int, session: Session):
+def get_priority_by_id(priority_id: int, session: Session):
     return session.get(Priorities, priority_id)
 
 
-async def create_priority(priority_data: PriorityCreate, session: Session):
+def create_priority(priority_data: PriorityCreate, session: Session):
     priority = Priorities(**priority_data.model_dump())
     session.add(priority)
     session.commit()
@@ -25,7 +25,7 @@ async def create_priority(priority_data: PriorityCreate, session: Session):
     return True
 
 
-async def update_priority(priority_id: int, priority_update: PriorityUpdate, session: Session):
+def update_priority(priority_id: int, priority_update: PriorityUpdate, session: Session):
     priority = session.get(Priorities, priority_id)
 
     if not priority:
@@ -41,7 +41,7 @@ async def update_priority(priority_id: int, priority_update: PriorityUpdate, ses
     return True
 
 
-async def delete_priority(priority_id: int, session: Session):
+def delete_priority(priority_id: int, session: Session):
     priority = session.get(Priorities, priority_id)
 
     if not priority:

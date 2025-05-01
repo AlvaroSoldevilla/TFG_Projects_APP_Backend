@@ -5,18 +5,18 @@ from app.models.TaskProgress import TaskProgress
 from app.schemas.TaskProgress import TaskProgressCreate, TaskProgressUpdate
 
 
-async def get_all_task_progress(session: Session):
+def get_all_task_progress(session: Session):
     query = select(TaskProgress)
-    progress_sections = session.exec(query).scalar().all()
+    progress_sections = session.exec(query).scalars().all()
 
     return [TaskProgress.model_validate(tp) for tp in progress_sections]
 
 
-async def get_task_progress_by_id(task_progress_id: int, session: Session):
+def get_task_progress_by_id(task_progress_id: int, session: Session):
     return session.get(TaskProgress, task_progress_id)
 
 
-async def create_task_progress(task_progress_data: TaskProgressCreate, session: Session):
+def create_task_progress(task_progress_data: TaskProgressCreate, session: Session):
     task_progress = TaskProgress(**task_progress_data.model_dump())
     session.add(task_progress)
     session.commit()
@@ -25,7 +25,7 @@ async def create_task_progress(task_progress_data: TaskProgressCreate, session: 
     return True
 
 
-async def update_task_progress(task_progress_id: int, task_progress_update: TaskProgressUpdate, session: Session):
+def update_task_progress(task_progress_id: int, task_progress_update: TaskProgressUpdate, session: Session):
     task_progress = session.get(TaskProgress, task_progress_id)
 
     if not task_progress:
@@ -41,7 +41,7 @@ async def update_task_progress(task_progress_id: int, task_progress_update: Task
     return True
 
 
-async def delete_task_progress(task_progress_id: int, session: Session):
+def delete_task_progress(task_progress_id: int, session: Session):
     task_progress = session.get(TaskProgress, task_progress_id)
 
     if not task_progress:

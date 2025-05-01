@@ -5,18 +5,18 @@ from app.models.Roles import Roles
 from app.schemas.Role import RoleCreate, RoleUpdate
 
 
-async def get_all_roles(session: Session):
+def get_all_roles(session: Session):
     query = select(Roles)
-    roles = session.exec(query).scalar().all()
+    roles = session.exec(query).scalars().all()
 
     return [Roles.model_validate(r) for r in roles]
 
 
-async def get_role_by_id(role_id: int, session: Session):
+def get_role_by_id(role_id: int, session: Session):
     return session.get(Roles, role_id)
 
 
-async def create_role(role_data: RoleCreate, session: Session):
+def create_role(role_data: RoleCreate, session: Session):
     role = Roles(**role_data.model_dump())
     session.add(role)
     session.commit()
@@ -25,7 +25,7 @@ async def create_role(role_data: RoleCreate, session: Session):
     return True
 
 
-async def update_role(role_id: int, role_update: RoleUpdate, session: Session):
+def update_role(role_id: int, role_update: RoleUpdate, session: Session):
     role = session.get(Roles, role_id)
 
     if not role:
@@ -41,7 +41,7 @@ async def update_role(role_id: int, role_update: RoleUpdate, session: Session):
     return True
 
 
-async def delete_role(role_id: int, session: Session):
+def delete_role(role_id: int, session: Session):
     role = session.get(Roles, role_id)
 
     if not role:

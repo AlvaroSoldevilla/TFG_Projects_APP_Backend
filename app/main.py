@@ -40,57 +40,55 @@ app.include_router(RouterUsers.router)
 
 
 # Crear tablas en la base de datos si no existen
-async def init_db():
+def init_db():
     SQLModel.metadata.create_all(engine)
-    await create_permissions()
-    await create_component_types()
-    await create_priorities()
+    create_permissions()
+    create_component_types()
+    create_priorities()
 
 
-async def create_permissions():
+def create_permissions():
     with next(get_session()) as session:
         if session.get(Permissions, 1) is None:
-            await create_permission(PermissionCreate(name="full_permissions"), session)
+            create_permission(PermissionCreate(name="full_permissions"), session)
 
-            await create_permission(PermissionCreate(name="read_tasks"), session)
-            await create_permission(PermissionCreate(name="create_tasks"), session)
-            await create_permission(PermissionCreate(name="create_task_boards"), session)
-            await create_permission(PermissionCreate(name="create_task_sections"), session)
-            await create_permission(PermissionCreate(name="edit_tasks"), session)
-            await create_permission(PermissionCreate(name="edit_task_boards"), session)
-            await create_permission(PermissionCreate(name="edit_sections"), session)
-            await create_permission(PermissionCreate(name="delete_tasks"), session)
-            await create_permission(PermissionCreate(name="delete_task_boards"), session)
-            await create_permission(PermissionCreate(name="delete_task_sections"), session)
+            create_permission(PermissionCreate(name="read_tasks"), session)
+            create_permission(PermissionCreate(name="create_tasks"), session)
+            create_permission(PermissionCreate(name="create_task_boards"), session)
+            create_permission(PermissionCreate(name="create_task_sections"), session)
+            create_permission(PermissionCreate(name="edit_tasks"), session)
+            create_permission(PermissionCreate(name="edit_task_boards"), session)
+            create_permission(PermissionCreate(name="edit_sections"), session)
+            create_permission(PermissionCreate(name="delete_tasks"), session)
+            create_permission(PermissionCreate(name="delete_task_boards"), session)
+            create_permission(PermissionCreate(name="delete_task_sections"), session)
 
-            await create_permission(PermissionCreate(name="full_task_permissions"), session)
+            create_permission(PermissionCreate(name="full_task_permissions"), session)
 
-            await create_permission(PermissionCreate(name="read_concepts"), session)
-            await create_permission(PermissionCreate(name="create_concepts"), session)
-            await create_permission(PermissionCreate(name="edit_concepts"), session)
-            await create_permission(PermissionCreate(name="delete_concepts"), session)
+            create_permission(PermissionCreate(name="read_concepts"), session)
+            create_permission(PermissionCreate(name="create_concepts"), session)
+            create_permission(PermissionCreate(name="edit_concepts"), session)
+            create_permission(PermissionCreate(name="delete_concepts"), session)
 
-            await create_permission(PermissionCreate(name="full_concept_permissions"), session)
+            create_permission(PermissionCreate(name="full_concept_permissions"), session)
 
 
-async def create_component_types():
+def create_component_types():
     with next(get_session()) as session:
         if session.get(Types, 1) is None:
-            await create_type(TypeCreate(name="ConceptBoard"), session)
-            await create_type(TypeCreate(name="Note"), session)
-            await create_type(TypeCreate(name="Container"), session)
-            await create_type(TypeCreate(name="Table"), session)
-            await create_type(TypeCreate(name="Line"), session)
+            create_type(TypeCreate(name="ConceptBoard"), session)
+            create_type(TypeCreate(name="Note"), session)
+            create_type(TypeCreate(name="Container"), session)
+            create_type(TypeCreate(name="Table"), session)
+            create_type(TypeCreate(name="Line"), session)
 
 
-async def create_priorities():
+def create_priorities():
     with next(get_session()) as session:
         if session.get(Priorities, 1) is None:
-            await create_priority(PriorityCreate(name="Maximum priority"), session)
-            await create_priority(PriorityCreate(name="Medium priority"), session)
-            await create_priority(PriorityCreate(name="Minimum priority"), session)
+            create_priority(PriorityCreate(name="Maximum priority"), session)
+            create_priority(PriorityCreate(name="Medium priority"), session)
+            create_priority(PriorityCreate(name="Minimum priority"), session)
 
 
-@app.on_event("startup")
-async def on_startup():
-    await init_db()
+init_db()

@@ -5,18 +5,18 @@ from app.models.Permissions import Permissions
 from app.schemas.Permission import PermissionCreate, PermissionUpdate
 
 
-async def get_all_permissions(session: Session):
+def get_all_permissions(session: Session):
     query = select(Permissions)
-    permissions = session.exec(query).scalar().all()
+    permissions = session.exec(query).scalars().all()
 
     return [Permissions.model_validate(p) for p in permissions]
 
 
-async def get_permission_by_id(permission_id: int, session: Session):
+def get_permission_by_id(permission_id: int, session: Session):
     return session.get(Permissions, permission_id)
 
 
-async def create_permission(permission_data: PermissionCreate, session: Session):
+def create_permission(permission_data: PermissionCreate, session: Session):
     permission = Permissions(**permission_data.model_dump())
     session.add(permission)
     session.commit()
@@ -25,7 +25,7 @@ async def create_permission(permission_data: PermissionCreate, session: Session)
     return True
 
 
-async def update_permission(permission_id: int, permission_update: PermissionUpdate, session: Session):
+def update_permission(permission_id: int, permission_update: PermissionUpdate, session: Session):
     permission = session.get(Permissions, permission_id)
 
     if not permission:
@@ -41,7 +41,7 @@ async def update_permission(permission_id: int, permission_update: PermissionUpd
     return True
 
 
-async def delete_permission(permission_id: int, session: Session):
+def delete_permission(permission_id: int, session: Session):
     permission = session.get(Permissions, permission_id)
 
     if not permission:
