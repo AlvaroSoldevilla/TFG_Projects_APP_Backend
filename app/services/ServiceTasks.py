@@ -1,3 +1,4 @@
+from datetime import date
 from sqlmodel import Session
 
 import app.repositories.RepositoryTasks as rt
@@ -14,6 +15,7 @@ def get_task_by_id(task_id: int, session: Session):
 
 
 def create_task(task_data: TaskCreate, session: Session):
+    task_data.creation_date = date.today()
     return rt.create_task(task_data, session)
 
 

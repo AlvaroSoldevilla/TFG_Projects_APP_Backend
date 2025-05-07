@@ -8,4 +8,4 @@ class Types(SQLModel, table=True):
     id:             int | None = Field(default=None, primary_key=True)
     name:           str | None = None
 
-    components:  Optional[list["Components"]] = Relationship(back_populates="type")
+    components:     Optional[list["Components"]] = Relationship(back_populates="type")

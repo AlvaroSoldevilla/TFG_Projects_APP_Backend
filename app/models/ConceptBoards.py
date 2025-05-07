@@ -8,9 +8,10 @@ class ConceptBoards(SQLModel, table=True):
     id:             int | None = Field(default=None, primary_key=True)
     id_concept:     int | None = Field(default=None, foreign_key="concepts.id")
     id_parent:      int | None = Field(default=None, foreign_key="concept_boards.id")
+    name:           str | None
 
     concept:        Optional["Concepts"] = Relationship(back_populates="concept_boards")
-    parent: Optional["ConceptBoards"] = Relationship(
+    parent:         Optional["ConceptBoards"] = Relationship(
         back_populates="children",
         sa_relationship_kwargs={"remote_side": "ConceptBoards.id"}
     )

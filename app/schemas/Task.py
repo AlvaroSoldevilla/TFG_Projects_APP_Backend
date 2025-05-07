@@ -15,6 +15,7 @@ class TaskCreate(SQLModel):
     progress:               int | None = 0
     creation_date:          Optional[date]
     limit_date:             Optional[date]
+    completion_date:        Optional[date]
     finished:               bool | None = False
 
 
@@ -33,4 +34,5 @@ class TaskUpdate(SQLModel):
     description:            str | None = None
     progress:               int | None = None
     limit_date:             Optional[date]
+    completion_date:        Optional[date]
     finished:               bool | None = None

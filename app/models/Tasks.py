@@ -18,29 +18,30 @@ class Tasks(SQLModel, table=True):
     progress:               int | None = 0
     creation_date:          Optional[date]
     limit_date:             Optional[date]
+    completion_date:        Optional[date]
     finished:               bool | None = False
 
-    task_section:                Optional["TaskSections"] = Relationship(back_populates="tasks")
+    task_section:           Optional["TaskSections"] = Relationship(back_populates="tasks")
     progress_section:       Optional["TaskProgress"] = Relationship(back_populates="tasks")
-    user_assigned: Optional["Users"] = Relationship(
+    user_assigned:          Optional["Users"] = Relationship(
         back_populates="tasks_assigned",
         sa_relationship_kwargs={"foreign_keys": "[Tasks.id_user_assigned]"}
     )
-    parent: Optional["Tasks"] = Relationship(
+    parent:                 Optional["Tasks"] = Relationship(
         back_populates="children",
         sa_relationship_kwargs={"remote_side": "Tasks.id"}
     )
     children:               Optional[list["Tasks"]] = Relationship(back_populates="parent")
-    user_created: Optional["Users"] = Relationship(
+    user_created:           Optional["Users"] = Relationship(
         back_populates="tasks_created",
         sa_relationship_kwargs={"foreign_keys": "[Tasks.id_user_created]"}
     )
     priority:               Optional["Priorities"] = Relationship(back_populates="tasks")
-    dependencies: list["TaskDependencies"] = Relationship(
+    dependencies:           list["TaskDependencies"] = Relationship(
         back_populates="task",
         sa_relationship_kwargs={"foreign_keys": "[TaskDependencies.id_task]"}
     )
-    dependents: list["TaskDependencies"] = Relationship(
+    dependents:             list["TaskDependencies"] = Relationship(
         back_populates="depends_on",
         sa_relationship_kwargs={"foreign_keys": "[TaskDependencies.id_depends_on]"}
     )

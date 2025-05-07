@@ -5,7 +5,7 @@ from app.db.session import get_session
 from app.schemas.TaskProgress import TaskProgressCreate, TaskProgressUpdate, TaskProgressRead
 import app.services.ServiceTaskProgress as stp
 
-router = APIRouter(prefix="/task_progresss", tags=["Task Progresss"])
+router = APIRouter(prefix="/task_progress", tags=["Task Progress"])
 
 
 # Generic endpoints

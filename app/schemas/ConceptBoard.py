@@ -4,6 +4,7 @@ from sqlmodel import SQLModel
 class ConceptBoardCreate(SQLModel):
     id_concept:         int
     id_parent:          int | None
+    name:               str | None
 
 
 class ConceptBoardRead(ConceptBoardCreate):
@@ -13,3 +14,4 @@ class ConceptBoardRead(ConceptBoardCreate):
 class ConceptBoardUpdate(SQLModel):
     id_concept:         int | None
     id_parent:          int | None
+    name:               str | None

@@ -10,12 +10,12 @@ class TaskDependencies(SQLModel, table=True):
     id_depends_on:      int | None = Field(default=None, foreign_key="tasks.id")
     unlock_at:          int | None = 100
 
-    task: Optional["Tasks"] = Relationship(
+    task:               Optional["Tasks"] = Relationship(
         back_populates="dependencies",
         sa_relationship_kwargs={"foreign_keys": "[TaskDependencies.id_task]"}
     )
 
-    depends_on: Optional["Tasks"] = Relationship(
+    depends_on:         Optional["Tasks"] = Relationship(
         back_populates="dependents",
         sa_relationship_kwargs={"foreign_keys": "[TaskDependencies.id_depends_on]"}
     )

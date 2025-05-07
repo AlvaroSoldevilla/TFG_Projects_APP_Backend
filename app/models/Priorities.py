@@ -8,4 +8,4 @@ class Priorities(SQLModel, table=True):
     id:             int | None = Field(default=None, primary_key=True)
     name:           str
 
-    tasks:  Optional[list["Tasks"]] = Relationship(back_populates="priority")
+    tasks:          Optional[list["Tasks"]] = Relationship(back_populates="priority")
