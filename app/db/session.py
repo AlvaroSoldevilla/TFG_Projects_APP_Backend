@@ -2,8 +2,6 @@ from sqlmodel import create_engine, Session
 from app.core.config import config
 
 
-
-
 if config.database_type == "sqlite":
     database_url = "sqlite:///./database.db"
 

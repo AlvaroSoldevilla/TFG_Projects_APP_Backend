@@ -9,7 +9,7 @@ class Projects(SQLModel, table=True):
     title:                  str | None = None
     description:            str | None = None
 
-    user_permissions:       Optional[list["UserProjectPermissions"]] = Relationship(back_populates="project")
-    users:                  Optional[list["ProjectUsers"]] = Relationship(back_populates="project")
-    concepts:               Optional[list["Concepts"]] = Relationship(back_populates="project")
-    task_boards:            Optional[list["TaskBoards"]] = Relationship(back_populates="project")
+    user_permissions:       Optional[list["UserProjectPermissions"]] = Relationship(back_populates="project", cascade_delete=True)
+    users:                  Optional[list["ProjectUsers"]] = Relationship(back_populates="project", cascade_delete=True)
+    concepts:               Optional[list["Concepts"]] = Relationship(back_populates="project", cascade_delete=True)
+    task_boards:            Optional[list["TaskBoards"]] = Relationship(back_populates="project", cascade_delete=True)

@@ -7,8 +7,10 @@ class UserCreate(SQLModel):
     email:      str | None = None
 
 
-class UserRead(UserCreate):
+class UserRead(SQLModel):
     id:         int
+    username:   str | None = None
+    email:      str | None = None
 
 
 class UserUpdate(SQLModel):

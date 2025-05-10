@@ -6,8 +6,8 @@ class ConceptBoards(SQLModel, table=True):
     __tablename__ = "concept_boards"
 
     id:             int | None = Field(default=None, primary_key=True)
-    id_concept:     int | None = Field(default=None, foreign_key="concepts.id")
-    id_parent:      int | None = Field(default=None, foreign_key="concept_boards.id")
+    id_concept:     int | None = Field(default=None, foreign_key="concepts.id", sa_column_kwargs={"ondelete": "CASCADE"})
+    id_parent:      int | None = Field(default=None, foreign_key="concept_boards.id", sa_column_kwargs={"ondelete": "CASCADE"})
     name:           str | None
 
     concept:        Optional["Concepts"] = Relationship(back_populates="concept_boards")
@@ -15,5 +15,5 @@ class ConceptBoards(SQLModel, table=True):
         back_populates="children",
         sa_relationship_kwargs={"remote_side": "ConceptBoards.id"}
     )
-    children:       Optional[list["ConceptBoards"]] = Relationship(back_populates="parent")
-    components:     Optional[list["Components"]] = Relationship(back_populates="board")
+    children:       Optional[list["ConceptBoards"]] = Relationship(back_populates="parent", cascade_delete=True)
+    components:     Optional[list["Components"]] = Relationship(back_populates="board", cascade_delete=True)

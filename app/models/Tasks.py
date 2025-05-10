@@ -7,12 +7,12 @@ class Tasks(SQLModel, table=True):
     __tablename__ = "tasks"
 
     id:                     int | None = Field(default=None, primary_key=True)
-    id_section:             int | None = Field(default=None, foreign_key="task_sections.id")
-    id_progress_section:    int | None = Field(default=None, foreign_key="task_progress.id")
+    id_section:             int | None = Field(default=None, foreign_key="task_sections.id", sa_column_kwargs={"ondelete": "CASCADE"})
+    id_progress_section:    int | None = Field(default=None, foreign_key="task_progress.id", sa_column_kwargs={"ondelete": "SET NULL"})
     id_user_assigned:       int | None = Field(default=None, foreign_key="users.id")
-    id_parent_task:         int | None = Field(default=None, foreign_key="tasks.id")
+    id_parent_task:         int | None = Field(default=None, foreign_key="tasks.id", sa_column_kwargs={"ondelete": "SET NULL"})
     id_user_created:        int | None = Field(default=None, foreign_key="users.id")
-    id_priority:            int | None = Field(default=None, foreign_key="priorities.id")
+    id_priority:            int | None = Field(default=None, foreign_key="priorities.id", sa_column_kwargs={"ondelete": "SET NULL"})
     title:                  str | None = None
     description:            str | None = None
     progress:               int | None = 0
@@ -39,9 +39,11 @@ class Tasks(SQLModel, table=True):
     priority:               Optional["Priorities"] = Relationship(back_populates="tasks")
     dependencies:           list["TaskDependencies"] = Relationship(
         back_populates="task",
-        sa_relationship_kwargs={"foreign_keys": "[TaskDependencies.id_task]"}
+        sa_relationship_kwargs={"foreign_keys": "[TaskDependencies.id_task]"},
+        cascade_delete=True
     )
     dependents:             list["TaskDependencies"] = Relationship(
         back_populates="depends_on",
-        sa_relationship_kwargs={"foreign_keys": "[TaskDependencies.id_depends_on]"}
+        sa_relationship_kwargs={"foreign_keys": "[TaskDependencies.id_depends_on]"},
+        cascade_delete=True
     )

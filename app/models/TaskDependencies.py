@@ -6,8 +6,8 @@ class TaskDependencies(SQLModel, table=True):
     __tablename__ = "task_dependencies"
 
     id:                 int | None = Field(default=None, primary_key=True)
-    id_task:            int | None = Field(default=None, foreign_key="tasks.id")
-    id_depends_on:      int | None = Field(default=None, foreign_key="tasks.id")
+    id_task:            int | None = Field(default=None, foreign_key="tasks.id", sa_column_kwargs={"ondelete": "CASCADE"})
+    id_depends_on:      int | None = Field(default=None, foreign_key="tasks.id", sa_column_kwargs={"ondelete": "CASCADE"})
     unlock_at:          int | None = 100
 
     task:               Optional["Tasks"] = Relationship(

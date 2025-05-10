@@ -6,7 +6,7 @@ class TaskProgress(SQLModel, table=True):
     __tablename__ = "task_progress"
 
     id:                     int | None = Field(default=None, primary_key=True)
-    id_section:             int | None = Field(default=None, foreign_key="task_sections.id")
+    id_section:             int | None = Field(default=None, foreign_key="task_sections.id", sa_column_kwargs={"ondelete": "CASCADE"})
     title:                  str | None = None
     modifies_progress:      bool | None = False
     progress_value:         int | None = 0

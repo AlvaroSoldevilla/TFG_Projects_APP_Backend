@@ -60,6 +60,6 @@ def get_user_created_task(id_task: int, session: Session = Depends(get_session))
     return st.get_user_created_by_task_id(id_task, session)
 
 
-@router.get("/user/assigned_to/{id}", response_model=UserRead, status_code=200)
+@router.get("/user/assigned/{id}", response_model=UserRead, status_code=200)
 def get_user_assigned_to_task(id_task: int, session: Session = Depends(get_session)):
     return st.get_user_assigned_by_task_id(id_task, session)
