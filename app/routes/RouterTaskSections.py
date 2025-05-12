@@ -45,5 +45,5 @@ def delete_task_section(id: int, session: Session = Depends(get_session)):
 
 # Model Specific endpoints
 @router.get("/board/{id}", response_model=list[TaskSectionRead], status_code=200)
-def get_task_sections_by_task_board(id_board: int, session: Session = Depends(get_session)):
-    return sts.get_task_sections_by_task_board(id_board, session)
+def get_task_sections_by_task_board(id: int, session: Session = Depends(get_session)):
+    return sts.get_task_sections_by_task_board(id, session)

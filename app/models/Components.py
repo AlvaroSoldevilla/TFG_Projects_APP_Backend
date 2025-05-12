@@ -6,9 +6,9 @@ class Components(SQLModel, table=True):
     __tablename__ = "components"
 
     id:             int | None = Field(default=None, primary_key=True)
-    id_board:       int | None = Field(default=None, foreign_key="concept_boards.id", sa_column_kwargs={"ondelete": "CASCADE"})
-    id_parent:      int | None = Field(default=None, foreign_key="components.id", sa_column_kwargs={"ondelete": "CASCADE"})
-    id_type:        int | None = Field(default=None, foreign_key="types.id", sa_column_kwargs={"ondelete": "SET NULL"})
+    id_board:       int | None = Field(default=None, foreign_key="concept_boards.id")
+    id_parent:      int | None = Field(default=None, foreign_key="components.id")
+    id_type:        int | None = Field(default=None, foreign_key="types.id")
     pos_x:          int | None = None
     pos_y:          int | None = None
     title:          str | None = None

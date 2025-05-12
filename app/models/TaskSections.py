@@ -6,7 +6,7 @@ class TaskSections(SQLModel, table=True):
     __tablename__ = "task_sections"
 
     id:                     int | None = Field(default=None, primary_key=True)
-    id_board:               int | None = Field(default=None, foreign_key="task_boards.id", sa_column_kwargs={"ondelete": "CASCADE"})
+    id_board:               int | None = Field(default=None, foreign_key="task_boards.id")
     title:                  str | None = None
 
     task_board:             Optional["TaskBoards"] = Relationship(back_populates="task_sections")

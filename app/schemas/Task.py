@@ -5,7 +5,7 @@ from datetime import date
 
 class TaskCreate(SQLModel):
     id_section:             int
-    id_progress_section:    int
+    id_progress_section:    int | None
     id_user_created:        int
     title:                  str
     id_user_assigned:       int | None

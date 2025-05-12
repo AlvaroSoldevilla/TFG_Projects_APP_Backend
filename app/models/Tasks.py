@@ -7,12 +7,12 @@ class Tasks(SQLModel, table=True):
     __tablename__ = "tasks"
 
     id:                     int | None = Field(default=None, primary_key=True)
-    id_section:             int | None = Field(default=None, foreign_key="task_sections.id", sa_column_kwargs={"ondelete": "CASCADE"})
-    id_progress_section:    int | None = Field(default=None, foreign_key="task_progress.id", sa_column_kwargs={"ondelete": "SET NULL"})
+    id_section:             int | None = Field(default=None, foreign_key="task_sections.id")
+    id_progress_section:    int | None = Field(default=None, foreign_key="task_progress.id")
     id_user_assigned:       int | None = Field(default=None, foreign_key="users.id")
-    id_parent_task:         int | None = Field(default=None, foreign_key="tasks.id", sa_column_kwargs={"ondelete": "SET NULL"})
+    id_parent_task:         int | None = Field(default=None, foreign_key="tasks.id")
     id_user_created:        int | None = Field(default=None, foreign_key="users.id")
-    id_priority:            int | None = Field(default=None, foreign_key="priorities.id", sa_column_kwargs={"ondelete": "SET NULL"})
+    id_priority:            int | None = Field(default=None, foreign_key="priorities.id")
     title:                  str | None = None
     description:            str | None = None
     progress:               int | None = 0

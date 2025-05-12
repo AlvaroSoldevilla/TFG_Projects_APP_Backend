@@ -29,10 +29,10 @@ def get_projects_by_user(id_user: int, session: Session):
     all_projects = rp.get_all_projects(session)
     user_projects = get_project_user_by_user(id_user, session)
 
-    project = []
+    projects = []
     for project in all_projects:
         for user_project in user_projects:
             if project.id == user_project.id_project:
-                project.append(project)
+                projects.append(project)
 
-    return project
+    return projects

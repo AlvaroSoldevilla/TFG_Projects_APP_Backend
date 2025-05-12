@@ -45,5 +45,5 @@ def delete_concept_board(id: int, session: Session = Depends(get_session)):
 
 # Model Specific endpoints
 @router.get("/concept/{id}", response_model=list[ConceptBoardRead], status_code=200)
-def get_concept_boards_by_concept(id_concept: int, session: Session = Depends(get_session)):
-    return scb.get_concept_boards_by_concept(id_concept, session)
+def get_concept_boards_by_concept(id: int, session: Session = Depends(get_session)):
+    return scb.get_concept_boards_by_concept(id, session)

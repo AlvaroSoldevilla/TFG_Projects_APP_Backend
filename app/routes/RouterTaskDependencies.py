@@ -45,5 +45,5 @@ def delete_task_dependency(id: int, session: Session = Depends(get_session)):
 
 # Model Specific endpoints
 @router.get("/task/{id}", response_model=list[TaskDependencyRead], status_code=200)
-def get_task_dependencies_by_task(task_id: int, session: Session = Depends(get_session)):
-    return std.get_dependencies_by_task_id(task_id, session)
+def get_task_dependencies_by_task(id: int, session: Session = Depends(get_session)):
+    return std.get_dependencies_by_task_id(id, session)

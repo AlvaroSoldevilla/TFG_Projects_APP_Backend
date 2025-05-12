@@ -46,20 +46,20 @@ def delete_task(id: int, session: Session = Depends(get_session)):
 
 # Model Specific endpoints
 @router.get("/section/{id}", response_model=list[TaskRead], status_code=200)
-def get_tasks_by_task_section(id_section: int, session: Session = Depends(get_session)):
-    return st.get_tasks_by_task_section(id_section, session)
+def get_tasks_by_task_section(id: int, session: Session = Depends(get_session)):
+    return st.get_tasks_by_task_section(id, session)
 
 
 @router.get("/progress/{id}", response_model=list[TaskRead], status_code=200)
-def get_tasks_by_task_section(id_progress: int, session: Session = Depends(get_session)):
-    return st.get_tasks_by_task_section(id_progress, session)
+def get_tasks_by_task_section(id: int, session: Session = Depends(get_session)):
+    return st.get_tasks_by_task_section(id, session)
 
 
 @router.get("/user/created/{id}", response_model=UserRead, status_code=200)
-def get_user_created_task(id_task: int, session: Session = Depends(get_session)):
-    return st.get_user_created_by_task_id(id_task, session)
+def get_user_created_task(id: int, session: Session = Depends(get_session)):
+    return st.get_user_created_by_task_id(id, session)
 
 
 @router.get("/user/assigned/{id}", response_model=UserRead, status_code=200)
-def get_user_assigned_to_task(id_task: int, session: Session = Depends(get_session)):
-    return st.get_user_assigned_by_task_id(id_task, session)
+def get_user_assigned_to_task(id: int, session: Session = Depends(get_session)):
+    return st.get_user_assigned_by_task_id(id, session)

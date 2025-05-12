@@ -45,5 +45,5 @@ def delete_component(id: int, session: Session = Depends(get_session)):
 
 # Model Specific endpoints
 @router.get("/board/{id}", response_model=list[ComponentRead], status_code=200)
-def get_components_by_board(id_board: int, session: Session = Depends(get_session)):
-    return sc.get_components_by_board(id_board, session)
+def get_components_by_board(id: int, session: Session = Depends(get_session)):
+    return sc.get_components_by_board(id, session)

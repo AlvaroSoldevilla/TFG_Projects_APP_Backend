@@ -45,10 +45,10 @@ def delete_project_user(id: int, session: Session = Depends(get_session)):
 
 # Model Specific endpoints
 @router.get("/user/{id}", response_model=list[ProjectUserRead], status_code=200)
-def get_project_users_by_user(id_user: int, session: Session = Depends(get_session)):
-    return spu.get_project_user_by_user(id_user, session)
+def get_project_users_by_user(id: int, session: Session = Depends(get_session)):
+    return spu.get_project_user_by_user(id, session)
 
 
 @router.get("/project/{id}", response_model=list[ProjectUserRead], status_code=200)
-def get_project_users_by_project(id_project: int, session: Session = Depends(get_session)):
-    return spu.get_project_user_by_project(id_project, session)
+def get_project_users_by_project(id: int, session: Session = Depends(get_session)):
+    return spu.get_project_user_by_project(id, session)

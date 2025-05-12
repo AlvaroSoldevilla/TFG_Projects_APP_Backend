@@ -45,18 +45,18 @@ def delete_user_project_permission(id: int, session: Session = Depends(get_sessi
 
 # Model Specific endpoints
 @router.get("/user/{id}", response_model=list[UserProjectPermissionRead], status_code=200)
-def get_user_project_permissions_by_user(id_user: int, session: Session = Depends(get_session)):
-    return supp.get_user_project_permissions_by_user(id_user, session)
+def get_user_project_permissions_by_user(id: int, session: Session = Depends(get_session)):
+    return supp.get_user_project_permissions_by_user(id, session)
 
 
 @router.get("/project/{id}", response_model=list[UserProjectPermissionRead], status_code=200)
-def get_user_project_permissions_by_project(id_project: int, session: Session = Depends(get_session)):
-    return supp.get_user_project_permissions_by_project(id_project, session)
+def get_user_project_permissions_by_project(id: int, session: Session = Depends(get_session)):
+    return supp.get_user_project_permissions_by_project(id, session)
 
 
 @router.get("/permission/{id}", response_model=list[UserProjectPermissionRead], status_code=200)
-def get_user_project_permissions_by_permission(id_permission: int, session: Session = Depends(get_session)):
-    return supp.get_user_project_permissions_by_permission(id_permission, session)
+def get_user_project_permissions_by_permission(id: int, session: Session = Depends(get_session)):
+    return supp.get_user_project_permissions_by_permission(id, session)
 
 
 @router.get("/user/{id_user}/project/{id_project}", response_model=list[UserProjectPermissionRead], status_code=200)

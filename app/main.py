@@ -86,9 +86,9 @@ def create_component_types():
 def create_priorities():
     with next(get_session()) as session:
         if session.get(Priorities, 1) is None:
-            create_priority(PriorityCreate(name="Maximum priority"), session)
-            create_priority(PriorityCreate(name="Medium priority"), session)
-            create_priority(PriorityCreate(name="Minimum priority"), session)
+            create_priority(PriorityCreate(name="Maximum priority", color="#e83023", priority_value=1), session)
+            create_priority(PriorityCreate(name="Medium priority", color="#e8db23", priority_value=2), session)
+            create_priority(PriorityCreate(name="Minimum priority", color="#23e841", priority_value=3), session)
 
 
 init_db()

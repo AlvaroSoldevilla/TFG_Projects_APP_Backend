@@ -45,5 +45,5 @@ def delete_project(id: int, session: Session = Depends(get_session)):
 
 # Model Specific endpoints
 @router.get("/user/{id}", response_model=list[ProjectRead], status_code=200)
-def get_projects_by_user(id_user: int, session: Session = Depends(get_session)):
-    return sp.get_projects_by_user(id_user, session)
+def get_projects_by_user(id: int, session: Session = Depends(get_session)):
+    return sp.get_projects_by_user(id, session)
