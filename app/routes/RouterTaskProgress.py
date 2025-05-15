@@ -44,6 +44,6 @@ def delete_task_progress(id: int, session: Session = Depends(get_session)):
 
 
 # Model Specific endpoints
-@router.get("/section/{id}", response_model=TaskProgressRead, status_code=200)
+@router.get("/section/{id}", response_model=list[TaskProgressRead], status_code=200)
 def get_task_progress_by_task_section(id: int, session: Session = Depends(get_session)):
     return stp.get_task_progress_by_task_section(id, session)

@@ -44,6 +44,6 @@ def delete_task_board(id: int, session: Session = Depends(get_session)):
 
 
 # Model Specific endpoints
-@router.get("/project/{id}", response_model=TaskBoardRead, status_code=200)
+@router.get("/project/{id}", response_model=list[TaskBoardRead], status_code=200)
 def get_task_boards_by_project(id: int, session: Session = Depends(get_session)):
     return stb.get_task_boards_by_project(id, session)
