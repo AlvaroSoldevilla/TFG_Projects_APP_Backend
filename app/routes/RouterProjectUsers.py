@@ -19,10 +19,11 @@ def get_project_user_by_id(id: int, session: Session = Depends(get_session)):
     return spu.get_project_user_by_id(id, session)
 
 
-@router.post("/", status_code=200)
+@router.post("/", status_code=200, response_model=ProjectUserRead)
 def create_project_user(project_user_data: ProjectUserCreate, session: Session = Depends(get_session)):
-    if spu.create_project_user(project_user_data, session):
-        return {"Message": "Project user created"}
+    project_user = spu.create_project_user(project_user_data, session)
+    if project_user:
+        return project_user
     else:
         raise HTTPException(status_code=400, detail="Could not create project user")
 

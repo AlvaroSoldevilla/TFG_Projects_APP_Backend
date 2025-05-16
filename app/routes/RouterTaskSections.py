@@ -19,10 +19,11 @@ def get_task_section_by_id(id: int, session: Session = Depends(get_session)):
     return sts.get_task_section_by_id(id, session)
 
 
-@router.post("/", status_code=200)
+@router.post("/", status_code=200, response_model=TaskSectionRead)
 def create_task_section(task_section_data: TaskSectionCreate, session: Session = Depends(get_session)):
-    if sts.create_task_section(task_section_data, session):
-        return {"Message": "Task section created"}
+    task_section = sts.create_task_section(task_section_data, session)
+    if task_section:
+        return task_section
     else:
         raise HTTPException(status_code=400, detail="Could not create task section")
 

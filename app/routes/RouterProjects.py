@@ -19,10 +19,11 @@ def get_project_by_id(id: int, session: Session = Depends(get_session)):
     return sp.get_project_by_id(id, session)
 
 
-@router.post("/", status_code=200)
+@router.post("/", status_code=200, response_model=ProjectRead)
 def create_project(project_data: ProjectCreate, session: Session = Depends(get_session)):
-    if sp.create_project(project_data, session):
-        return {"Message": "Project created"}
+    project = sp.create_project(project_data, session)
+    if project:
+        return project
     else:
         raise HTTPException(status_code=400, detail="Could not create project")
 

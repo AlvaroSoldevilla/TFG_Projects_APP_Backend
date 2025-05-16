@@ -19,10 +19,11 @@ def get_concept_by_id(id: int, session: Session = Depends(get_session)):
     return sc.get_concept_by_id(id, session)
 
 
-@router.post("/", status_code=200)
+@router.post("/", status_code=200, response_model=ConceptRead)
 def create_concept(concept_data: ConceptCreate, session: Session = Depends(get_session)):
-    if sc.create_concept(concept_data, session):
-        return {"Message": "Concept created"}
+    concept = sc.create_concept(concept_data, session)
+    if concept:
+        return concept
     else:
         raise HTTPException(status_code=400, detail="Could not create concept")
 

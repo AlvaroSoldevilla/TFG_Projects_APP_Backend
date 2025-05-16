@@ -19,10 +19,11 @@ def get_permission_by_id(id: int, session: Session = Depends(get_session)):
     return sp.get_permission_by_id(id, session)
 
 
-@router.post("/", status_code=200)
+@router.post("/", status_code=200, response_model=PermissionRead)
 def create_permission(permission_data: PermissionCreate, session: Session = Depends(get_session)):
-    if sp.create_permission(permission_data, session):
-        return {"Message": "Permission created"}
+    permission = sp.create_permission(permission_data, session)
+    if permission:
+        return permission
     else:
         raise HTTPException(status_code=400, detail="Could not create permission")
 

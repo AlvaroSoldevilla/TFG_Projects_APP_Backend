@@ -19,10 +19,11 @@ def get_task_dependency_by_id(id: int, session: Session = Depends(get_session)):
     return std.get_task_dependency_by_id(id, session)
 
 
-@router.post("/", status_code=200)
+@router.post("/", status_code=200, response_model=TaskDependencyRead)
 def create_task_dependency(task_dependency_data: TaskDependencyCreate, session: Session = Depends(get_session)):
-    if std.create_task_dependency(task_dependency_data, session):
-        return {"Message": "Task dependency created"}
+    task_dependency = std.create_task_dependency(task_dependency_data, session)
+    if task_dependency:
+        return task_dependency
     else:
         raise HTTPException(status_code=400, detail="Could not create task dependency")
 

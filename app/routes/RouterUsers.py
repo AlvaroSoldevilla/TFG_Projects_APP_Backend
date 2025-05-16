@@ -19,10 +19,11 @@ def get_user_by_id(id: int, session: Session = Depends(get_session)):
     return su.get_user_by_id(id, session)
 
 
-@router.post("/", status_code=200)
+@router.post("/", status_code=200, response_model=UserRead)
 def create_user(user_data: UserCreate, session: Session = Depends(get_session)):
-    if su.create_user(user_data, session):
-        return {"Message": "User created"}
+    user = su.create_user(user_data, session)
+    if user:
+        return user
     else:
         raise HTTPException(status_code=400, detail="Could not create user")
 
@@ -46,7 +47,7 @@ def delete_user(id: int, session: Session = Depends(get_session)):
 # Model Specific endpoints
 @router.get("/project/{id}", response_model=list[UserRead], status_code=200)
 def get_users_by_project(id: int, session: Session = Depends(get_session)):
-    return su.get_project_user_by_project(id, session)
+    return su.get_users_by_project(id, session)
 
 
 @router.post("/auth/", status_code=200)

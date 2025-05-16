@@ -19,10 +19,11 @@ def get_role_by_id(id: int, session: Session = Depends(get_session)):
     return sr.get_role_by_id(id, session)
 
 
-@router.post("/", status_code=200)
+@router.post("/", status_code=200, response_model=RoleRead)
 def create_role(role_data: RoleCreate, session: Session = Depends(get_session)):
-    if sr.create_role(role_data, session):
-        return {"Message": "Role created"}
+    role = sr.create_role(role_data, session)
+    if role:
+        return role
     else:
         raise HTTPException(status_code=400, detail="Could not create role")
 

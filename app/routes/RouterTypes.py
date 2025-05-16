@@ -19,10 +19,11 @@ def get_type_by_id(id: int, session: Session = Depends(get_session)):
     return sc.get_type_by_id(id, session)
 
 
-@router.post("/", status_code=200)
+@router.post("/", status_code=200, response_model=TypeRead)
 def create_type(type_data: TypeCreate, session: Session = Depends(get_session)):
-    if sc.create_type(type_data, session):
-        return {"Message": "Type created"}
+    type = sc.create_type(type_data, session)
+    if type:
+        return type
     else:
         raise HTTPException(status_code=400, detail="Could not create type")
 

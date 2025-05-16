@@ -19,10 +19,11 @@ def get_component_by_id(id: int, session: Session = Depends(get_session)):
     return sc.get_component_by_id(id, session)
 
 
-@router.post("/", status_code=200)
+@router.post("/", status_code=200, response_model=ComponentRead)
 def create_component(component_data: ComponentCreate, session: Session = Depends(get_session)):
-    if sc.create_component(component_data, session):
-        return {"Message": "Component created"}
+    component = sc.create_component(component_data, session)
+    if component:
+        return component
     else:
         raise HTTPException(status_code=400, detail="Could not create component")
 

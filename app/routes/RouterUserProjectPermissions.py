@@ -19,10 +19,11 @@ def get_user_project_permission_by_id(id: int, session: Session = Depends(get_se
     return supp.get_user_project_permission_by_id(id, session)
 
 
-@router.post("/", status_code=200)
+@router.post("/", status_code=200, response_model=UserProjectPermissionRead)
 def create_user_project_permission(user_project_permission_data: UserProjectPermissionCreate, session: Session = Depends(get_session)):
-    if supp.create_user_project_permission(user_project_permission_data, session):
-        return {"Message": "User_Project_Permission created"}
+    user_project_permission = supp.create_user_project_permission(user_project_permission_data, session)
+    if user_project_permission:
+        return user_project_permission
     else:
         raise HTTPException(status_code=400, detail="Could not create user_project_permission")
 

@@ -19,10 +19,11 @@ def get_priority_by_id(id: int, session: Session = Depends(get_session)):
     return sp.get_priority_by_id(id, session)
 
 
-@router.post("/", status_code=200)
+@router.post("/", status_code=200, response_model=PriorityRead)
 def create_priority(priority_data: PriorityCreate, session: Session = Depends(get_session)):
-    if sp.create_priority(priority_data, session):
-        return {"Message": "Priority created"}
+    priority = sp.create_priority(priority_data, session)
+    if priority:
+        return priority
     else:
         raise HTTPException(status_code=400, detail="Could not create priority")
 

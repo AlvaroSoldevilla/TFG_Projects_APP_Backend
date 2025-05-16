@@ -19,10 +19,11 @@ def get_task_progress_by_id(id: int, session: Session = Depends(get_session)):
     return stp.get_task_progress_by_id(id, session)
 
 
-@router.post("/", status_code=200)
+@router.post("/", status_code=200, response_model=TaskProgressRead)
 def create_task_progress(task_progress_data: TaskProgressCreate, session: Session = Depends(get_session)):
-    if stp.create_task_progress(task_progress_data, session):
-        return {"Message": "Task progress created"}
+    task_progress = stp.create_task_progress(task_progress_data, session)
+    if task_progress:
+        return task_progress
     else:
         raise HTTPException(status_code=400, detail="Could not create task progress")
 

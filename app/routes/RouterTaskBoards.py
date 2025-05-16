@@ -19,10 +19,11 @@ def get_task_board_by_id(id: int, session: Session = Depends(get_session)):
     return stb.get_task_board_by_id(id, session)
 
 
-@router.post("/", status_code=200)
+@router.post("/", status_code=200, response_model=TaskBoardRead)
 def create_task_board(task_board_data: TaskBoardCreate, session: Session = Depends(get_session)):
-    if stb.create_task_board(task_board_data, session):
-        return {"Message": "Task board created"}
+    task_board = stb.create_task_board(task_board_data, session)
+    if task_board:
+        return task_board
     else:
         raise HTTPException(status_code=400, detail="Could not create task board")
 

@@ -20,10 +20,11 @@ def get_task_by_id(id: int, session: Session = Depends(get_session)):
     return st.get_task_by_id(id, session)
 
 
-@router.post("/", status_code=200)
+@router.post("/", status_code=200, response_model=TaskRead)
 def create_task(task_data: TaskCreate, session: Session = Depends(get_session)):
-    if st.create_task(task_data, session):
-        return {"Message": "Task created"}
+    task = st.create_task(task_data, session)
+    if task:
+        return task
     else:
         raise HTTPException(status_code=400, detail="Could not create task")
 
