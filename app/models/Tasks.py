@@ -16,9 +16,9 @@ class Tasks(SQLModel, table=True):
     title:                  str | None = None
     description:            str | None = None
     progress:               int | None = 0
-    creation_date:          Optional[date]
-    limit_date:             Optional[date]
-    completion_date:        Optional[date]
+    creation_date:          Optional[date] | None
+    limit_date:             Optional[date] | None
+    completion_date:        Optional[date] | None
     finished:               bool | None = False
 
     task_section:           Optional["TaskSections"] = Relationship(back_populates="tasks")
@@ -27,11 +27,6 @@ class Tasks(SQLModel, table=True):
         back_populates="tasks_assigned",
         sa_relationship_kwargs={"foreign_keys": "[Tasks.id_user_assigned]"}
     )
-    parent:                 Optional["Tasks"] = Relationship(
-        back_populates="children",
-        sa_relationship_kwargs={"remote_side": "Tasks.id"}
-    )
-    children:               Optional[list["Tasks"]] = Relationship(back_populates="parent")
     user_created:           Optional["Users"] = Relationship(
         back_populates="tasks_created",
         sa_relationship_kwargs={"foreign_keys": "[Tasks.id_user_created]"}

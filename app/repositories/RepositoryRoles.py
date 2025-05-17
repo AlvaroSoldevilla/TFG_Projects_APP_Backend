@@ -22,7 +22,7 @@ def create_role(role_data: RoleCreate, session: Session):
     session.commit()
     session.refresh(role)
 
-    return True
+    return role
 
 
 def update_role(role_id: int, role_update: RoleUpdate, session: Session):

@@ -11,9 +11,4 @@ class ConceptBoards(SQLModel, table=True):
     name:           str | None
 
     concept:        Optional["Concepts"] = Relationship(back_populates="concept_boards")
-    parent:         Optional["ConceptBoards"] = Relationship(
-        back_populates="children",
-        sa_relationship_kwargs={"remote_side": "ConceptBoards.id"}
-    )
-    children:       Optional[list["ConceptBoards"]] = Relationship(back_populates="parent", cascade_delete=True)
     components:     Optional[list["Components"]] = Relationship(back_populates="board", cascade_delete=True)

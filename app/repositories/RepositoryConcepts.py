@@ -22,7 +22,7 @@ def create_concept(concept_data: ConceptCreate, session: Session):
     session.commit()
     session.refresh(concept)
 
-    return True
+    return concept
 
 
 def update_concept(concept_id: int, concept_update: ConceptUpdate, session: Session):

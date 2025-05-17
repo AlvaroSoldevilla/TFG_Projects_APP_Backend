@@ -22,7 +22,7 @@ def create_task_board(task_board_data: TaskBoardCreate, session: Session):
     session.commit()
     session.refresh(task_board)
 
-    return True
+    return task_board
 
 
 def update_task_board(task_board_id: int, task_board_update: TaskBoardUpdate, session: Session):

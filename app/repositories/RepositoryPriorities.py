@@ -22,7 +22,7 @@ def create_priority(priority_data: PriorityCreate, session: Session):
     session.commit()
     session.refresh(priority)
 
-    return True
+    return priority
 
 
 def update_priority(priority_id: int, priority_update: PriorityUpdate, session: Session):

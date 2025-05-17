@@ -22,7 +22,7 @@ def create_concept_board(concept_board_data: ConceptBoardCreate, session: Sessio
     session.commit()
     session.refresh(concept_board)
 
-    return True
+    return concept_board
 
 
 def update_concept_board(concept_board_id: int, concept_board_update: ConceptBoardUpdate, session: Session):

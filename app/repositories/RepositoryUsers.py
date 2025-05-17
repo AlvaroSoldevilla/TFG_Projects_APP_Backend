@@ -23,8 +23,8 @@ def create_user(user_data: UserCreate, session: Session):
         session.commit()
         session.refresh(user)
 
-        return True
-    return False
+        return user
+    return None
 
 
 def update_user(user_id: int, user_update: UserUpdate, session: Session):

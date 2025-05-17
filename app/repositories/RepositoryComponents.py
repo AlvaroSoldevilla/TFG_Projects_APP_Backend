@@ -26,7 +26,7 @@ def create_component(component_data: ComponentCreate, session: Session):
     session.commit()
     session.refresh(component)
 
-    return True
+    return component
 
 
 def update_component(component_id: int, component_update: ComponentUpdate, session: Session):

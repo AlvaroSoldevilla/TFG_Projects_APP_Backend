@@ -22,7 +22,7 @@ def create_task(task_data: TaskCreate, session: Session):
     session.commit()
     session.refresh(task)
 
-    return True
+    return task
 
 
 def update_task(task_id: int, task_update: TaskUpdate, session: Session):

@@ -22,7 +22,7 @@ def create_task_section(task_section_data: TaskSectionCreate, session: Session):
     session.commit()
     session.refresh(task_section)
 
-    return True
+    return task_section
 
 
 def update_task_section(task_section_id: int, task_section_update: TaskSectionUpdate, session: Session):

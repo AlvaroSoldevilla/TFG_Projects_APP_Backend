@@ -22,7 +22,7 @@ def create_permission(permission_data: PermissionCreate, session: Session):
     session.commit()
     session.refresh(permission)
 
-    return True
+    return permission
 
 
 def update_permission(permission_id: int, permission_update: PermissionUpdate, session: Session):

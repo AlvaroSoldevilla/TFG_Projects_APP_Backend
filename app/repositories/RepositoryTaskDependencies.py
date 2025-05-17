@@ -22,7 +22,7 @@ def create_task_dependency(task_dependency_data: TaskDependencyCreate, session: 
     session.commit()
     session.refresh(task_dependency)
 
-    return True
+    return task_dependency
 
 
 def update_task_dependency(task_dependency_id: int, task_dependency_update: TaskDependencyUpdate, session: Session):

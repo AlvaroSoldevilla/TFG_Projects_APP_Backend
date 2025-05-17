@@ -22,7 +22,7 @@ def create_type(type_data: TypeCreate, session: Session):
     session.commit()
     session.refresh(component_type)
 
-    return True
+    return component_type
 
 
 def update_type(type_id: int, type_update: TypeUpdate, session: Session):

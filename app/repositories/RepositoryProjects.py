@@ -22,7 +22,7 @@ def create_project(project_data: ProjectCreate, session: Session):
     session.commit()
     session.refresh(project)
 
-    return True
+    return project
 
 
 def update_project(project_id: int, project_update: ProjectUpdate, session: Session):

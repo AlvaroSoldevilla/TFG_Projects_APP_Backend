@@ -22,7 +22,7 @@ def create_task_progress(task_progress_data: TaskProgressCreate, session: Sessio
     session.commit()
     session.refresh(task_progress)
 
-    return True
+    return task_progress
 
 
 def update_task_progress(task_progress_id: int, task_progress_update: TaskProgressUpdate, session: Session):

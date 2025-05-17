@@ -15,9 +15,4 @@ class Components(SQLModel, table=True):
     content:        str | None = None
 
     board:          Optional["ConceptBoards"] = Relationship(back_populates="components")
-    parent: Optional["Components"] = Relationship(
-        back_populates="children",
-        sa_relationship_kwargs={"remote_side": "Components.id"},
-    )
-    children:       Optional[list["Components"]] = Relationship(back_populates="parent", cascade_delete=True)
     type:           Optional["Types"] = Relationship(back_populates="components")

@@ -22,7 +22,7 @@ def create_user_project_permission(user_project_permission_data: UserProjectPerm
     session.commit()
     session.refresh(user_project_permission)
 
-    return True
+    return user_project_permission
 
 
 def update_user_project_permission(user_project_permission_id: int, user_project_permission_update: UserProjectPermissionUpdate, session: Session):
