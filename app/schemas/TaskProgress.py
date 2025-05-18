@@ -6,6 +6,7 @@ class TaskProgressCreate(SQLModel):
     title:                  str
     modifies_progress:      bool | None = False
     progress_value:         int | None = 0
+    order:                  int | None = 0
 
 
 class TaskProgressRead(TaskProgressCreate):
@@ -17,3 +18,4 @@ class TaskProgressUpdate(SQLModel):
     title:                  str | None = None
     modifies_progress:      bool | None = None
     progress_value:         int | None = None
+    order:                  int | None = None

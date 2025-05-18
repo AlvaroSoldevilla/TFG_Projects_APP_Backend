@@ -10,6 +10,7 @@ class TaskProgress(SQLModel, table=True):
     title:                  str | None = None
     modifies_progress:      bool | None = False
     progress_value:         int | None = 0
+    order:                  int | None = 0
 
     task_section:           Optional["TaskSections"] = Relationship(back_populates="progress_sections")
     tasks:                  Optional[list["Tasks"]] = Relationship(back_populates="progress_section")

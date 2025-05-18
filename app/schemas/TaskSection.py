@@ -4,6 +4,7 @@ from sqlmodel import SQLModel
 class TaskSectionCreate(SQLModel):
     id_board:   int
     title:      str
+    order:      int | None = 0
 
 
 class TaskSectionRead(TaskSectionCreate):
@@ -13,3 +14,4 @@ class TaskSectionRead(TaskSectionCreate):
 class TaskSectionUpdate(SQLModel):
     id_board:   int | None = None
     title:      str | None = None
+    order:      int | None = None
