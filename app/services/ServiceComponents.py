@@ -24,6 +24,6 @@ def delete_component(component_id: int, session: Session):
     return rc.delete_component(component_id, session)
 
 
-def get_components_by_board(board_id: int, session: Session):
+def get_components_by_board(id_board: int, session: Session):
     components = rc.get_all_components(session)
-    return [component for component in components if component.board_id == board_id]
+    return [component for component in components if component.id_board == id_board]
