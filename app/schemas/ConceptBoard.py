@@ -3,8 +3,8 @@ from sqlmodel import SQLModel
 
 class ConceptBoardCreate(SQLModel):
     id_concept:         int
-    id_parent:          int | None
-    name:               str | None
+    id_parent:          int | None = None
+    name:               str | None = None
 
 
 class ConceptBoardRead(ConceptBoardCreate):
@@ -12,6 +12,6 @@ class ConceptBoardRead(ConceptBoardCreate):
 
 
 class ConceptBoardUpdate(SQLModel):
-    id_concept:         int | None
-    id_parent:          int | None
-    name:               str | None
+    id_concept:         int | None = None
+    id_parent:          int | None = None
+    name:               str | None = None
