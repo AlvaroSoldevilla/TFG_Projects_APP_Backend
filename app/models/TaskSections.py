@@ -7,6 +7,7 @@ class TaskSections(SQLModel, table=True):
 
     id:                     int | None = Field(default=None, primary_key=True)
     id_board:               int | None = Field(default=None, foreign_key="task_boards.id")
+    id_default_progress:    int | None = None
     title:                  str | None = None
     order:                  int | None = 0
 

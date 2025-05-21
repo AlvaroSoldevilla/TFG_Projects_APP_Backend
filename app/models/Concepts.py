@@ -7,6 +7,7 @@ class Concepts(SQLModel, table=True):
 
     id:                 int | None = Field(default=None, primary_key=True)
     id_project:         int | None = Field(default=None, foreign_key="projects.id")
+    id_first_board:     int | None = None
     title:              str | None = None
     description:        str | None = None
 
