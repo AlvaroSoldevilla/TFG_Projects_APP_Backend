@@ -70,4 +70,4 @@ def get_user_by_mail(email: str, session: Session):
     query = select(Users).where(Users.email == email)
     user = session.exec(query).first()
 
-    return user if user is not None else None
+    return user

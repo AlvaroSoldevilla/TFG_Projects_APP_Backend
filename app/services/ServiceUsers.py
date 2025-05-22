@@ -42,9 +42,9 @@ def authenticate_user(user_data: UserAuthenticate, session: Session):
     user = ru.get_user_by_mail(user_data.email, session)
 
     if user is not None:
-        if user.password == user_data.password:
-            return True
+        if user[0].password == user_data.password:
+            return user[0]
         else:
-            return False
+            return None
     else:
-        return False
+        return None

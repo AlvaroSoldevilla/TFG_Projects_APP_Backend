@@ -50,9 +50,10 @@ def get_users_by_project(id: int, session: Session = Depends(get_session)):
     return su.get_users_by_project(id, session)
 
 
-@router.post("/auth/", status_code=200)
+@router.post("/auth/", response_model=UserRead, status_code=200)
 def authenticate_user(user_data: UserAuthenticate, session: Session = Depends(get_session)):
-    if su.authenticate_user(user_data, session):
-        return {"Message": "User Authenticated"}
+    user = su.authenticate_user(user_data, session)
+    if user is not None:
+        return user
     else:
         raise HTTPException(status_code=400, detail="Could not authenticate user")
