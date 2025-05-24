@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from app.routes import (RouterComponents, RouterConceptBoards, RouterConcepts, RouterPermissions, RouterPriorities,
                         RouterProjects, RouterProjectUsers, RouterRoles, RouterTaskBoards, RouterTaskDependencies,
                         RouterTaskProgress, RouterTasks, RouterTaskSections, RouterTypes, RouterUserProjectPermissions,
-                        RouterUsers)
+                        RouterUsers, RouterConnection)
 from app.db.session import engine, get_session
 from sqlmodel import SQLModel
 
@@ -37,6 +37,7 @@ app.include_router(RouterTaskSections.router)
 app.include_router(RouterTypes.router)
 app.include_router(RouterUserProjectPermissions.router)
 app.include_router(RouterUsers.router)
+app.include_router(RouterConnection.router)
 
 
 # Crear tablas en la base de datos si no existen
