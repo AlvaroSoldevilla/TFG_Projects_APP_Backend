@@ -32,3 +32,9 @@ def get_project_user_by_user(id_user: int, session: Session):
 def get_project_user_by_project(id_project: int, session: Session):
     project_users = rpu.get_all_project_users(session)
     return [project_user for project_user in project_users if project_user.id_project == id_project]
+
+
+def get_project_user_by_project_and_user(id_project: int, id_user: int, session: Session):
+    project_users = rpu.get_all_project_users(session)
+    return [project_user for project_user in project_users
+            if (project_user.id_user == id_user and project_user.id_project == id_project)][0]

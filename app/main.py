@@ -18,6 +18,10 @@ from app.repositories.RepositoryPermissions import create_permission
 from app.schemas.Permission import PermissionCreate
 from app.models.Permissions import Permissions
 
+from app.repositories.RepositoryRoles import create_role
+from app.schemas.Role import RoleCreate
+from app.models.Roles import Roles
+
 app = FastAPI()
 
 # Registrar las rutas
@@ -46,6 +50,10 @@ def init_db():
     create_permissions()
     create_component_types()
     create_priorities()
+
+    with next(get_session()) as session:
+        if session.get(Roles, 1) is None:
+            create_role(RoleCreate(name="Project Creator", description="The user that created the project"), session)
 
 
 def create_permissions():

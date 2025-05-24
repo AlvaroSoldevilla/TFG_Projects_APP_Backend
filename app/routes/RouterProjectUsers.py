@@ -53,3 +53,7 @@ def get_project_users_by_user(id: int, session: Session = Depends(get_session)):
 @router.get("/project/{id}", response_model=list[ProjectUserRead], status_code=200)
 def get_project_users_by_project(id: int, session: Session = Depends(get_session)):
     return spu.get_project_user_by_project(id, session)
+
+@router.get("/project/{id_project}/user/{id_user}", response_model=ProjectUserRead, status_code=200)
+def get_project_user_by_project_and_user(id_project: int, id_user: int, session: Session = Depends(get_session)):
+    return spu.get_project_user_by_project_and_user(id_project, id_user, session)
