@@ -26,4 +26,4 @@ def delete_task_progress(task_progress_id: int, session: Session):
 
 def get_task_progress_by_task_section(id_section: int, session: Session):
     task_progress = rtp.get_all_task_progress(session)
-    return [single_task_progress for single_task_progress in task_progress if task_progress.id_section == id_section]
+    return [single_task_progress for single_task_progress in task_progress if single_task_progress.id_section == id_section]
