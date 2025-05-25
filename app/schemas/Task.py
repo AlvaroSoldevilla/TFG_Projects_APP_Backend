@@ -17,6 +17,7 @@ class TaskCreate(SQLModel):
     limit_date:             Optional[date] | None = None
     completion_date:        Optional[date] | None = None
     finished:               bool | None = False
+    is_parent:              bool | None = False
 
 
 class TaskRead(TaskCreate):
@@ -36,3 +37,4 @@ class TaskUpdate(SQLModel):
     limit_date:             Optional[date] | None = None
     completion_date:        Optional[date] | None = None
     finished:               bool | None = None
+    is_parent:              bool | None = None

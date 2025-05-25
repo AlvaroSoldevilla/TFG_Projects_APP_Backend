@@ -54,6 +54,7 @@ def init_db():
     with next(get_session()) as session:
         if session.get(Roles, 1) is None:
             create_role(RoleCreate(name="Project Creator", description="The user that created the project"), session)
+            create_role(RoleCreate(name="Collaborator", description="A user that works on the project"), session)
 
 
 def create_permissions():

@@ -20,6 +20,7 @@ class Tasks(SQLModel, table=True):
     limit_date:             Optional[date] | None
     completion_date:        Optional[date] | None
     finished:               bool | None = False
+    is_parent:              bool | None = False
 
     task_section:           Optional["TaskSections"] = Relationship(back_populates="tasks")
     progress_section:       Optional["TaskProgress"] = Relationship(back_populates="tasks")
