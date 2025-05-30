@@ -9,8 +9,8 @@ class Components(SQLModel, table=True):
     id_board:       int | None = Field(default=None, foreign_key="concept_boards.id")
     id_parent:      int | None = Field(default=None, foreign_key="components.id")
     id_type:        int | None = Field(default=None, foreign_key="types.id")
-    pos_x:          int | None = None
-    pos_y:          int | None = None
+    pos_x:          float | None = None
+    pos_y:          float | None = None
     title:          str | None = None
     content:        str | None = None
 

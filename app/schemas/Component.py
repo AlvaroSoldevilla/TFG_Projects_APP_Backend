@@ -7,8 +7,8 @@ class ComponentCreate(SQLModel):
     title:      str
 
     id_parent:  int | None = None
-    pos_x:      int | None = 0
-    pos_y:      int | None = 0
+    pos_x:      float | None = 0
+    pos_y:      float | None = 0
     content:    str | None = ""
 
 
@@ -22,6 +22,6 @@ class ComponentUpdate(SQLModel):
     title:      str | None = None
 
     id_parent:  int | None = None
-    pos_x:      int | None = None
-    pos_y:      int | None = None
+    pos_x:      float | None = None
+    pos_y:      float | None = None
     content:    str | None = None
