@@ -23,3 +23,6 @@ class UserAuthenticate(SQLModel):
     password:   str
     username:   str
     email:      str
+
+class UserEmail(SQLModel):
+    email:      str

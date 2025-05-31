@@ -42,3 +42,7 @@ def delete_permission(id: int, session: Session = Depends(get_session)):
         return {"Message": "Permission deleted"}
     else:
         raise HTTPException(status_code=400, detail="Could not delete permission")
+
+@router.get("/user/{id}", response_model=list[PermissionRead], status_code=200)
+def get_all_permissions_by_user(id: int, session: Session = Depends(get_session)):
+    return sp.get_all_permissions_by_user(id, session)

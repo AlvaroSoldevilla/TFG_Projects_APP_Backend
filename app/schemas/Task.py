@@ -25,6 +25,7 @@ class TaskRead(TaskCreate):
 
 
 class TaskUpdate(SQLModel):
+    id:                     int | None = None
     id_section:             int | None = None
     id_progress_section:    int | None = None
     id_user_assigned:       int | None = None

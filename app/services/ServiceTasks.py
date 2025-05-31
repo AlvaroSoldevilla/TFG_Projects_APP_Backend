@@ -20,6 +20,16 @@ def create_task(task_data: TaskCreate, session: Session):
 
 
 def update_task(task_id: int, task_update: TaskUpdate, session: Session):
+    db_task = rt.get_task_by_id(task_update.id, session)
+    if task_update.progress == 100:
+        if db_task.completion_date is None:
+            task_update.completion_date = date.today()
+            task_update.finished = True
+    else:
+        if db_task.completion_date is not None:
+            task_update.completion_date = None
+            task_update.finished = False
+
     return rt.update_task(task_id, task_update, session)
 
 

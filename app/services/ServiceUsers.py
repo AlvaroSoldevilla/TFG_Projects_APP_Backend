@@ -48,3 +48,7 @@ def authenticate_user(user_data: UserAuthenticate, session: Session):
             return None
     else:
         return None
+
+
+def get_user_by_email(user_email: str, session: Session):
+    return ru.get_user_by_mail(user_email.email, session)[0]

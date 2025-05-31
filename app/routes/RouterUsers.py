@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends
 from sqlmodel import Session
 
 from app.db.session import get_session
-from app.schemas.User import UserCreate, UserUpdate, UserRead, UserAuthenticate
+from app.schemas.User import UserCreate, UserUpdate, UserRead, UserAuthenticate, UserEmail
 import app.services.ServiceUsers as su
 
 router = APIRouter(prefix="/users", tags=["Users"])
@@ -57,3 +57,11 @@ def authenticate_user(user_data: UserAuthenticate, session: Session = Depends(ge
         return user
     else:
         raise HTTPException(status_code=400, detail="Could not authenticate user")
+
+@router.post("/email/", response_model=UserRead, status_code=200)
+def get_user_by_email(user_email: UserEmail, session: Session = Depends(get_session)):
+    user = su.get_user_by_email(user_email, session)
+    if user is not None:
+        return user
+    else:
+        raise HTTPException(status_code=400, detail="Could not find user")
