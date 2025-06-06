@@ -4,8 +4,8 @@ from sqlmodel import SQLModel
 class TaskProgressCreate(SQLModel):
     id_section:             int
     title:                  str
-    modifies_progress:      bool | None = False
-    progress_value:         int | None = 0
+    modifies_progress:      bool
+    progress_value:         int
     order:                  int | None = 0
 
 

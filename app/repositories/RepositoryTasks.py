@@ -51,3 +51,10 @@ def delete_task(task_id: int, session: Session):
     session.commit()
 
     return True
+
+
+def get_tasks_by_parent(task_id: int, session: Session):
+    query = select(Tasks).where(Tasks.id_parent_task == task_id).where(Tasks.id != task_id)
+
+    tasks = session.exec(query).scalars().all()
+    return [Tasks.model_validate(t) for t in tasks]

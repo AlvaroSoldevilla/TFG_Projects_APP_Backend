@@ -56,6 +56,11 @@ def get_tasks_by_task_section(id: int, session: Session = Depends(get_session)):
     return st.get_tasks_by_task_progress(id, session)
 
 
+@router.get("/parent/{id}", response_model=list[TaskRead], status_code=200)
+def get_tasks_by_parent(id: int, session: Session = Depends(get_session)):
+    return st.get_tasks_by_parent(id, session)
+
+
 @router.get("/user/created/{id}", response_model=UserRead, status_code=200)
 def get_user_created_task(id: int, session: Session = Depends(get_session)):
     return st.get_user_created_by_task_id(id, session)
@@ -64,3 +69,4 @@ def get_user_created_task(id: int, session: Session = Depends(get_session)):
 @router.get("/user/assigned/{id}", response_model=UserRead, status_code=200)
 def get_user_assigned_to_task(id: int, session: Session = Depends(get_session)):
     return st.get_user_assigned_by_task_id(id, session)
+

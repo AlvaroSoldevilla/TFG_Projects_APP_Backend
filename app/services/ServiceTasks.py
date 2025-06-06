@@ -30,6 +30,14 @@ def update_task(task_id: int, task_update: TaskUpdate, session: Session):
             task_update.completion_date = None
             task_update.finished = False
 
+    children = rt.get_tasks_by_parent(task_id, session)
+    print(children)
+    if task_update.is_parent and len(children) == 0:
+        print(children)
+        print("---------------------------------------------------------")
+        print("Task:", task_id, "is no longer a parent")
+        task_update.is_parent = False
+
     return rt.update_task(task_id, task_update, session)
 
 
@@ -55,3 +63,7 @@ def get_user_assigned_by_task_id(id_task: int, session: Session):
 def get_user_created_by_task_id(id_task: int, session: Session):
     task = get_task_by_id(id_task, session)
     return get_user_by_id(task.id_user_created, session)
+
+
+def get_tasks_by_parent(task_id: int, session: Session):
+    return rt.get_tasks_by_parent(task_id, session)
