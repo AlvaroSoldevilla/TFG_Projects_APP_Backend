@@ -10,7 +10,7 @@ router = APIRouter(prefix="/user_project_permissions", tags=["User_Project_Permi
 
 
 # Generic endpoints
-@router.get("/", dependencies=[Depends(JWTBearer())], response_model=list[UserProjectPermissionRead], status_code=200)
+@router.get("", dependencies=[Depends(JWTBearer())], response_model=list[UserProjectPermissionRead], status_code=200)
 def get_all_user_project_permissions(session: Session = Depends(get_session)):
     return supp.get_all_user_project_permissions(session)
 
@@ -20,7 +20,7 @@ def get_user_project_permission_by_id(id: int, session: Session = Depends(get_se
     return supp.get_user_project_permission_by_id(id, session)
 
 
-@router.post("/", dependencies=[Depends(JWTBearer())], status_code=200, response_model=UserProjectPermissionRead)
+@router.post("", dependencies=[Depends(JWTBearer())], status_code=200, response_model=UserProjectPermissionRead)
 def create_user_project_permission(user_project_permission_data: UserProjectPermissionCreate, session: Session = Depends(get_session)):
     user_project_permission = supp.create_user_project_permission(user_project_permission_data, session)
     if user_project_permission:
@@ -56,7 +56,7 @@ def get_user_project_permissions_by_project(id: int, session: Session = Depends(
     return supp.get_user_project_permissions_by_project(id, session)
 
 
-@router.get("/permission/{id}", response_model=list[UserProjectPermissionRead], status_code=200)
+@router.get("/permission/{id}", dependencies=[Depends(JWTBearer())], response_model=list[UserProjectPermissionRead], status_code=200)
 def get_user_project_permissions_by_permission(id: int, session: Session = Depends(get_session)):
     return supp.get_user_project_permissions_by_permission(id, session)
 

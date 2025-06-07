@@ -10,7 +10,7 @@ router = APIRouter(prefix="/concept_boards", tags=["Concept Boards"])
 
 
 # Generic endpoints
-@router.get("/", dependencies=[Depends(JWTBearer())], response_model=list[ConceptBoardRead], status_code=200)
+@router.get("", dependencies=[Depends(JWTBearer())], response_model=list[ConceptBoardRead], status_code=200)
 def get_all_concept_boards(session: Session = Depends(get_session)):
     return scb.get_all_concept_boards(session)
 
@@ -20,7 +20,7 @@ def get_concept_board_by_id(id: int, session: Session = Depends(get_session)):
     return scb.get_concept_board_by_id(id, session)
 
 
-@router.post("/", dependencies=[Depends(JWTBearer())], status_code=200, response_model=ConceptBoardRead)
+@router.post("", dependencies=[Depends(JWTBearer())], status_code=200, response_model=ConceptBoardRead)
 def create_concept_board(concept_board_data: ConceptBoardCreate, session: Session = Depends(get_session)):
     concept_board = scb.create_concept_board(concept_board_data, session)
     if concept_board:

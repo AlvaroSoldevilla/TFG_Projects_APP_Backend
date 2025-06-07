@@ -62,16 +62,18 @@ def create_permissions():
         if session.get(Permissions, 1) is None:
             create_permission(PermissionCreate(name="full_permissions"), session)
 
-            create_permission(PermissionCreate(name="read_tasks"), session)
-            create_permission(PermissionCreate(name="create_tasks"), session)
+            create_permission(PermissionCreate(name="read_tasks_boards"), session)
             create_permission(PermissionCreate(name="create_task_boards"), session)
-            create_permission(PermissionCreate(name="create_task_sections"), session)
-            create_permission(PermissionCreate(name="edit_tasks"), session)
+            create_permission(PermissionCreate(name="create_task_board_sections"), session)
+            create_permission(PermissionCreate(name="create_tasks"), session)
+
             create_permission(PermissionCreate(name="edit_task_boards"), session)
-            create_permission(PermissionCreate(name="edit_sections"), session)
+            create_permission(PermissionCreate(name="edit_task_board_sections"), session)
+            create_permission(PermissionCreate(name="edit_tasks"), session)
+
+            create_permission(PermissionCreate(name="delete_tasks_boards"), session)
+            create_permission(PermissionCreate(name="delete_task_board_sections"), session)
             create_permission(PermissionCreate(name="delete_tasks"), session)
-            create_permission(PermissionCreate(name="delete_task_boards"), session)
-            create_permission(PermissionCreate(name="delete_task_sections"), session)
 
             create_permission(PermissionCreate(name="full_task_permissions"), session)
 
@@ -80,7 +82,18 @@ def create_permissions():
             create_permission(PermissionCreate(name="edit_concepts"), session)
             create_permission(PermissionCreate(name="delete_concepts"), session)
 
+            create_permission(PermissionCreate(name="create_components"), session)
+            create_permission(PermissionCreate(name="edit_components"), session)
+            create_permission(PermissionCreate(name="delete_components"), session)
+
             create_permission(PermissionCreate(name="full_concept_permissions"), session)
+
+            create_permission(PermissionCreate(name="read_users"), session)
+            create_permission(PermissionCreate(name="add_users"), session)
+            create_permission(PermissionCreate(name="edit_users"), session)
+            create_permission(PermissionCreate(name="remove_users"), session)
+
+            create_permission(PermissionCreate(name="full_user_permissions"), session)
 
 
 def create_component_types():

@@ -24,5 +24,11 @@ class UserAuthenticate(SQLModel):
     username:   str
     email:      str
 
+
 class UserEmail(SQLModel):
     email:      str
+
+
+class RefreshToken(SQLModel):
+    email:      str
+    token:      str

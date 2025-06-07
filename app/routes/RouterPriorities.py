@@ -10,7 +10,7 @@ router = APIRouter(prefix="/priorities", tags=["Priorities"])
 
 
 # Generic endpoints
-@router.get("/", dependencies=[Depends(JWTBearer())], response_model=list[PriorityRead], status_code=200)
+@router.get("", dependencies=[Depends(JWTBearer())], response_model=list[PriorityRead], status_code=200)
 def get_all_priorities(session: Session = Depends(get_session)):
     return sp.get_all_priorities(session)
 

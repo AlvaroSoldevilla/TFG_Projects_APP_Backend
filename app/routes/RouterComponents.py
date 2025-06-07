@@ -10,7 +10,7 @@ router = APIRouter(prefix="/components", tags=["Components"])
 
 
 # Generic endpoints
-@router.get("/", dependencies=[Depends(JWTBearer())], response_model=list[ComponentRead], status_code=200)
+@router.get("", dependencies=[Depends(JWTBearer())], response_model=list[ComponentRead], status_code=200)
 def get_all_components(session: Session = Depends(get_session)):
     return sc.get_all_components(session)
 
@@ -20,7 +20,7 @@ def get_component_by_id(id: int, session: Session = Depends(get_session)):
     return sc.get_component_by_id(id, session)
 
 
-@router.post("/", dependencies=[Depends(JWTBearer())], status_code=200, response_model=ComponentRead)
+@router.post("", dependencies=[Depends(JWTBearer())], status_code=200, response_model=ComponentRead)
 def create_component(component_data: ComponentCreate, session: Session = Depends(get_session)):
     component = sc.create_component(component_data, session)
     if component:

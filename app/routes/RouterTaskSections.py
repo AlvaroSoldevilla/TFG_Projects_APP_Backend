@@ -10,7 +10,7 @@ router = APIRouter(prefix="/task_sections", tags=["Task_Sections"])
 
 
 # Generic endpoints
-@router.get("/", dependencies=[Depends(JWTBearer())], response_model=list[TaskSectionRead], status_code=200)
+@router.get("", dependencies=[Depends(JWTBearer())], response_model=list[TaskSectionRead], status_code=200)
 def get_all_task_sections(session: Session = Depends(get_session)):
     return sts.get_all_task_sections(session)
 
@@ -20,7 +20,7 @@ def get_task_section_by_id(id: int, session: Session = Depends(get_session)):
     return sts.get_task_section_by_id(id, session)
 
 
-@router.post("/", dependencies=[Depends(JWTBearer())], status_code=200, response_model=TaskSectionRead)
+@router.post("", dependencies=[Depends(JWTBearer())], status_code=200, response_model=TaskSectionRead)
 def create_task_section(task_section_data: TaskSectionCreate, session: Session = Depends(get_session)):
     task_section = sts.create_task_section(task_section_data, session)
     if task_section:

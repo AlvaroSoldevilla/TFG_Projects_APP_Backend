@@ -10,7 +10,7 @@ router = APIRouter(prefix="/types", tags=["Types"])
 
 
 # Generic endpoints
-@router.get("/", dependencies=[Depends(JWTBearer())], response_model=list[TypeRead], status_code=200)
+@router.get("", dependencies=[Depends(JWTBearer())], response_model=list[TypeRead], status_code=200)
 def get_all_types(session: Session = Depends(get_session)):
     return sc.get_all_types(session)
 
@@ -20,7 +20,7 @@ def get_type_by_id(id: int, session: Session = Depends(get_session)):
     return sc.get_type_by_id(id, session)
 
 
-@router.post("/", dependencies=[Depends(JWTBearer())], status_code=200, response_model=TypeRead)
+@router.post("", dependencies=[Depends(JWTBearer())], status_code=200, response_model=TypeRead)
 def create_type(type_data: TypeCreate, session: Session = Depends(get_session)):
     type = sc.create_type(type_data, session)
     if type:

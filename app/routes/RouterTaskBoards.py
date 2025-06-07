@@ -10,7 +10,7 @@ router = APIRouter(prefix="/task_boards", tags=["Task Boards"])
 
 
 # Generic endpoints
-@router.get("/", dependencies=[Depends(JWTBearer())], response_model=list[TaskBoardRead], status_code=200)
+@router.get("", dependencies=[Depends(JWTBearer())], response_model=list[TaskBoardRead], status_code=200)
 def get_all_task_boards(session: Session = Depends(get_session)):
     return stb.get_all_task_boards(session)
 
@@ -20,7 +20,7 @@ def get_task_board_by_id(id: int, session: Session = Depends(get_session)):
     return stb.get_task_board_by_id(id, session)
 
 
-@router.post("/", dependencies=[Depends(JWTBearer())], status_code=200, response_model=TaskBoardRead)
+@router.post("", dependencies=[Depends(JWTBearer())], status_code=200, response_model=TaskBoardRead)
 def create_task_board(task_board_data: TaskBoardCreate, session: Session = Depends(get_session)):
     task_board = stb.create_task_board(task_board_data, session)
     if task_board:

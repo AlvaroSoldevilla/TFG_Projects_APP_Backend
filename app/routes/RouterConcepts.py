@@ -10,7 +10,7 @@ router = APIRouter(prefix="/concepts", tags=["Concepts"])
 
 
 # Generic endpoints
-@router.get("/", dependencies=[Depends(JWTBearer())], response_model=list[ConceptRead], status_code=200)
+@router.get("", dependencies=[Depends(JWTBearer())], response_model=list[ConceptRead], status_code=200)
 def get_all_concepts(session: Session = Depends(get_session)):
     return sc.get_all_concepts(session)
 
@@ -20,7 +20,7 @@ def get_concept_by_id(id: int, session: Session = Depends(get_session)):
     return sc.get_concept_by_id(id, session)
 
 
-@router.post("/", dependencies=[Depends(JWTBearer())], status_code=200, response_model=ConceptRead)
+@router.post("", dependencies=[Depends(JWTBearer())], status_code=200, response_model=ConceptRead)
 def create_concept(concept_data: ConceptCreate, session: Session = Depends(get_session)):
     concept = sc.create_concept(concept_data, session)
     if concept:

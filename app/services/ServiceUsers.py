@@ -2,7 +2,7 @@ from sqlmodel import Session
 
 import app.repositories.RepositoryUsers as ru
 from app.services.ServiceProjectUsers import get_project_user_by_project
-from app.schemas.User import UserCreate, UserUpdate, UserAuthenticate
+from app.schemas.User import UserCreate, UserUpdate, UserAuthenticate, UserEmail
 
 
 def get_all_users(session: Session):
@@ -50,5 +50,5 @@ def authenticate_user(user_data: UserAuthenticate, session: Session):
         return None
 
 
-def get_user_by_email(user_email: str, session: Session):
+def get_user_by_email(user_email: UserEmail, session: Session):
     return ru.get_user_by_mail(user_email.email, session)[0]

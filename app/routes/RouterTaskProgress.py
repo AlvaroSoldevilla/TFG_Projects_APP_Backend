@@ -10,7 +10,7 @@ router = APIRouter(prefix="/task_progress", tags=["Task Progress"])
 
 
 # Generic endpoints
-@router.get("/", dependencies=[Depends(JWTBearer())], response_model=list[TaskProgressRead], status_code=200)
+@router.get("", dependencies=[Depends(JWTBearer())], response_model=list[TaskProgressRead], status_code=200)
 def get_all_task_progress(session: Session = Depends(get_session)):
     return stp.get_all_task_progress(session)
 
@@ -20,7 +20,7 @@ def get_task_progress_by_id(id: int, session: Session = Depends(get_session)):
     return stp.get_task_progress_by_id(id, session)
 
 
-@router.post("/", dependencies=[Depends(JWTBearer())], status_code=200, response_model=TaskProgressRead)
+@router.post("", dependencies=[Depends(JWTBearer())], status_code=200, response_model=TaskProgressRead)
 def create_task_progress(task_progress_data: TaskProgressCreate, session: Session = Depends(get_session)):
     task_progress = stp.create_task_progress(task_progress_data, session)
     if task_progress:

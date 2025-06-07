@@ -10,7 +10,7 @@ router = APIRouter(prefix="/projects", tags=["Projects"])
 
 
 # Generic endpoints
-@router.get("/", dependencies=[Depends(JWTBearer())], response_model=list[ProjectRead], status_code=200)
+@router.get("", dependencies=[Depends(JWTBearer())], response_model=list[ProjectRead], status_code=200)
 def get_all_projects(session: Session = Depends(get_session)):
     return sp.get_all_projects(session)
 
@@ -20,7 +20,7 @@ def get_project_by_id(id: int, session: Session = Depends(get_session)):
     return sp.get_project_by_id(id, session)
 
 
-@router.post("/", dependencies=[Depends(JWTBearer())], status_code=200, response_model=ProjectRead)
+@router.post("", dependencies=[Depends(JWTBearer())], status_code=200, response_model=ProjectRead)
 def create_project(project_data: ProjectCreate, session: Session = Depends(get_session)):
     project = sp.create_project(project_data, session)
     if project:

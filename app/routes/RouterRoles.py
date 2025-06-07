@@ -10,7 +10,7 @@ router = APIRouter(prefix="/roles", tags=["Roles"])
 
 
 # Generic endpoints
-@router.get("/", dependencies=[Depends(JWTBearer())], response_model=list[RoleRead], status_code=200)
+@router.get("", dependencies=[Depends(JWTBearer())], response_model=list[RoleRead], status_code=200)
 def get_all_roles(session: Session = Depends(get_session)):
     return sr.get_all_roles(session)
 
@@ -20,7 +20,7 @@ def get_role_by_id(id: int, session: Session = Depends(get_session)):
     return sr.get_role_by_id(id, session)
 
 
-@router.post("/", dependencies=[Depends(JWTBearer())], status_code=200, response_model=RoleRead)
+@router.post("", dependencies=[Depends(JWTBearer())], status_code=200, response_model=RoleRead)
 def create_role(role_data: RoleCreate, session: Session = Depends(get_session)):
     role = sr.create_role(role_data, session)
     if role:

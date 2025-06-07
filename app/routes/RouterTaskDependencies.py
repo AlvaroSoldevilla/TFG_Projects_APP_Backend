@@ -10,7 +10,7 @@ router = APIRouter(prefix="/task_dependencies", tags=["Task Dependencies"])
 
 
 # Generic endpoints
-@router.get("/", dependencies=[Depends(JWTBearer())], response_model=list[TaskDependencyRead], status_code=200)
+@router.get("", dependencies=[Depends(JWTBearer())], response_model=list[TaskDependencyRead], status_code=200)
 def get_all_task_dependencies(session: Session = Depends(get_session)):
     return std.get_all_task_dependencies(session)
 
@@ -20,7 +20,7 @@ def get_task_dependency_by_id(id: int, session: Session = Depends(get_session)):
     return std.get_task_dependency_by_id(id, session)
 
 
-@router.post("/", dependencies=[Depends(JWTBearer())], status_code=200, response_model=TaskDependencyRead)
+@router.post("", dependencies=[Depends(JWTBearer())], status_code=200, response_model=TaskDependencyRead)
 def create_task_dependency(task_dependency_data: TaskDependencyCreate, session: Session = Depends(get_session)):
     task_dependency = std.create_task_dependency(task_dependency_data, session)
     if task_dependency:
