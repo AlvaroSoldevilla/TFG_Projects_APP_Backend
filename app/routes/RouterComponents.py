@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlmodel import Session
+from app.auth.auth_bearer import JWTBearer
 
 from app.db.session import get_session
 from app.schemas.Component import ComponentCreate, ComponentUpdate, ComponentRead
@@ -9,17 +10,17 @@ router = APIRouter(prefix="/components", tags=["Components"])
 
 
 # Generic endpoints
-@router.get("/", response_model=list[ComponentRead], status_code=200)
+@router.get("/", dependencies=[Depends(JWTBearer())], response_model=list[ComponentRead], status_code=200)
 def get_all_components(session: Session = Depends(get_session)):
     return sc.get_all_components(session)
 
 
-@router.get("/{id}", response_model=ComponentRead, status_code=200)
+@router.get("/{id}", dependencies=[Depends(JWTBearer())], response_model=ComponentRead, status_code=200)
 def get_component_by_id(id: int, session: Session = Depends(get_session)):
     return sc.get_component_by_id(id, session)
 
 
-@router.post("/", status_code=200, response_model=ComponentRead)
+@router.post("/", dependencies=[Depends(JWTBearer())], status_code=200, response_model=ComponentRead)
 def create_component(component_data: ComponentCreate, session: Session = Depends(get_session)):
     component = sc.create_component(component_data, session)
     if component:
@@ -28,7 +29,7 @@ def create_component(component_data: ComponentCreate, session: Session = Depends
         raise HTTPException(status_code=400, detail="Could not create component")
 
 
-@router.patch("/{id}", status_code=200)
+@router.patch("/{id}", dependencies=[Depends(JWTBearer())], status_code=200)
 def update_component(id: int, component_update: ComponentUpdate, session: Session = Depends(get_session)):
     if sc.update_component(id, component_update, session):
         return {"Message": "Component updated"}
@@ -36,7 +37,7 @@ def update_component(id: int, component_update: ComponentUpdate, session: Sessio
         raise HTTPException(status_code=400, detail="Could not update component")
 
 
-@router.delete("/{id}", status_code=200)
+@router.delete("/{id}", dependencies=[Depends(JWTBearer())], status_code=200)
 def delete_component(id: int, session: Session = Depends(get_session)):
     if sc.delete_component(id, session):
         return {"Message": "Component deleted"}
@@ -45,6 +46,6 @@ def delete_component(id: int, session: Session = Depends(get_session)):
 
 
 # Model Specific endpoints
-@router.get("/board/{id}", response_model=list[ComponentRead], status_code=200)
+@router.get("/board/{id}", dependencies=[Depends(JWTBearer())], response_model=list[ComponentRead], status_code=200)
 def get_components_by_board(id: int, session: Session = Depends(get_session)):
     return sc.get_components_by_board(id, session)

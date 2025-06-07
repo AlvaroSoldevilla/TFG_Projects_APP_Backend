@@ -11,6 +11,8 @@ services:
       - POSTGRES_USER=productsapi
       - POSTGRES_DB=productsapi
       - DB_HOST=db
+      - SECRET=your_secret_password
+      - ALGORITHM=HS256
   db:
     image: postgres:15
     ports:
