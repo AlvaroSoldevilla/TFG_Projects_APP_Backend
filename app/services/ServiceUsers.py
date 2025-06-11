@@ -18,6 +18,16 @@ def create_user(user_data: UserCreate, session: Session):
 
 
 def update_user(user_id: int, user_update: UserUpdate, session: Session):
+    existing_user = ru.get_user_by_id(user_id, session)
+    if user_update.password is None:
+        user_update.password = existing_user.password
+
+    if user_update.email is not None and existing_user.email != user_update.email:
+        if get_user_by_email(UserEmail(email=user_update.email), session) is None:
+            return ru.update_user(user_id, user_update, session)
+        else:
+            return None
+
     return ru.update_user(user_id, user_update, session)
 
 

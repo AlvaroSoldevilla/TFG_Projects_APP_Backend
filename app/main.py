@@ -103,7 +103,6 @@ def create_component_types():
             create_type(TypeCreate(name="Note"), session)
             create_type(TypeCreate(name="Container"), session)
             create_type(TypeCreate(name="Table"), session)
-            create_type(TypeCreate(name="Line"), session)
 
 
 def create_priorities():
