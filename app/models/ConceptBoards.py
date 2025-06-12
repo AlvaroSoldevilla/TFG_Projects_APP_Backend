@@ -7,7 +7,7 @@ class ConceptBoards(SQLModel, table=True):
 
     id:             int | None = Field(default=None, primary_key=True)
     id_concept:     int | None = Field(default=None, foreign_key="concepts.id")
-    id_parent:      int | None = Field(default=None, foreign_key="concept_boards.id")
+    id_parent:      int | None = None
     name:           str | None
 
     concept:        Optional["Concepts"] = Relationship(back_populates="concept_boards")

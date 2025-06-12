@@ -26,7 +26,7 @@ def get_user_by_id(id: int, session: Session = Depends(get_session)):
         return user
 
 
-@router.post("", dependencies=[Depends(jwt_scheme)], status_code=200, response_model=UserRead)
+@router.post("", status_code=200, response_model=UserRead)
 def create_user(user_data: UserCreate, session: Session = Depends(get_session)):
     user = su.create_user(user_data, session)
     if user:

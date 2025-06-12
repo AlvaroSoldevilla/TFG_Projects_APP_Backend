@@ -10,7 +10,7 @@ class Tasks(SQLModel, table=True):
     id_section:             int | None = Field(default=None, foreign_key="task_sections.id")
     id_progress_section:    int | None = Field(default=None, foreign_key="task_progress.id")
     id_user_assigned:       int | None = Field(default=None, foreign_key="users.id")
-    id_parent_task:         int | None = Field(default=None, foreign_key="tasks.id")
+    id_parent_task:         int | None = None
     id_user_created:        int | None = Field(default=None, foreign_key="users.id")
     id_priority:            int | None = Field(default=None, foreign_key="priorities.id")
     title:                  str | None = None

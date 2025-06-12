@@ -1,18 +1,23 @@
+version: "3.8"
+
 services:
   api:
-    image: alvarosoldevilla/apiprojects:latest
+    build:
+      context: .
     depends_on:
       - db
     ports:
-      - "8000:8000"
+      - "25004:8000"
     environment:
-      - DATABASE_TYPE=sqlite
+      - DATABASE_TYPE=postgres
       - POSTGRES_PASSWORD=productsapi
       - POSTGRES_USER=productsapi
       - POSTGRES_DB=productsapi
       - DB_HOST=db
       - SECRET=your_secret_password
       - ALGORITHM=HS256
+    networks:
+      - internal_net
   db:
     image: postgres:15
     ports:
@@ -21,4 +26,9 @@ services:
       - POSTGRES_PASSWORD=productsapi
       - POSTGRES_USER=productsapi
       - POSTGRES_DB=productsapi
-      - DB_HOST=db
+    networks:
+      - internal_net
+
+networks:
+  internal_net:
+    driver: bridge

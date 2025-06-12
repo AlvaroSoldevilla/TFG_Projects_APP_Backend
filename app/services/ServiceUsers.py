@@ -61,4 +61,4 @@ def authenticate_user(user_data: UserAuthenticate, session: Session):
 
 
 def get_user_by_email(user_email: UserEmail, session: Session):
-    return ru.get_user_by_mail(user_email.email, session)[0]
+    return ru.get_user_by_mail(user_email.email, session)
