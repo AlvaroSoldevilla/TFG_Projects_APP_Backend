@@ -39,17 +39,12 @@ Para clonar el repositorio:
     cd TFG_Projects_APP_Backend
 ```
 
-Para ejecutar la aplicación:
-
-```bash
-    pip install -r requirements.txt
-```
-
-Instalar dependencias:
+Para Instalar dependencias:
 
 ```bash
     python -m venv venv
     venv\Scripts\activate
+    pip install -r requirements.txt
 ```
 
 Ejecutar el servidor:
