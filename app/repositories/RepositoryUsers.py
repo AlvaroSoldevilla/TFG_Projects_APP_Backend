@@ -2,6 +2,7 @@ from sqlalchemy import select
 from sqlmodel import Session
 
 from app.models.Users import Users
+from app.schemas import User
 from app.schemas.User import UserRead, UserCreate, UserUpdate
 
 
@@ -70,4 +71,4 @@ def get_user_by_mail(email: str, session: Session):
     query = select(Users).where(Users.email == email)
     user = session.exec(query).scalar()
 
-    return UserRead.model_validate(user)
+    return user
