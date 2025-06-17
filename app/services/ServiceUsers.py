@@ -53,7 +53,7 @@ def authenticate_user(user_data: UserAuthenticate, session: Session):
 
     if user is not None:
         if user.password == user_data.password:
-            return user[0]
+            return user
         else:
             return None
     else:
