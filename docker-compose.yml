@@ -20,8 +20,6 @@ services:
       - internal_net
   db:
     image: postgres:15
-    ports:
-      - 5432:5432
     environment:
       - POSTGRES_PASSWORD=productsapi
       - POSTGRES_USER=productsapi
